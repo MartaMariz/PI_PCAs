@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/view/pages/add_record_view.dart';
+import 'package:pi_pcas/view/pages/profile_view.dart';
+import 'package:pi_pcas/view/pages/skills_view.dart';
 
-import '../widgets/navbar_view.dart';
 import '../../theme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,18 +26,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int currentTab = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final List<Widget> screens = [
+    Skills(),
+    AddRecord(),
+    Profile(),
+  ];
+
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentScreen = Skills();
 
   @override
   Widget build(BuildContext context) {
@@ -46,47 +46,76 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: PageStorage(
+        child: currentScreen,
+        bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white,),
+        backgroundColor: mainColor,
+        onPressed: () {
+          setState(() {
+            currentScreen = AddRecord();
+            currentTab = 1;
+          });
+        },
       ),
-      bottomNavigationBar: NavBar(),// This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButtonLocation:  FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 70,
+          child:  Row(
+            mainAxisAlignment:  MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                crossAxisAlignment:  CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    minWidth:  40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = Skills();
+                        currentTab = 0;
+                      });
+                    },
+                    child:
+                        Icon(
+                          Icons.menu_book_outlined,
+                          size: 40,
+                          color: currentTab == 0? mainColor : Colors.grey,
+                        )
+                    )
+
+                ],
+              ),
+              Row(
+                crossAxisAlignment:  CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                      minWidth:  40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = Profile();
+                          currentTab = 2;
+                        });
+                      },
+                      child:
+                      Icon(
+                        Icons.person,
+                        color: currentTab == 2? mainColor : Colors.grey,
+                        size: 40,
+                      )
+                  )
+
+                ],
+
+              )
+
+            ],
+          ),
+        )
+      )
     );
   }
 }
