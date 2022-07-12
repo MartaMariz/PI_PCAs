@@ -25,7 +25,7 @@ class Palette{
 
 Map<int, Color> color =
 {
-      50:Color.fromRGBO(0xB4, 0x8D, 0xE5, .1),
+      50:Color.fromRGBO(0xB4, 0x8D, 0xE5, 1),
       100:Color.fromRGBO(0xB4, 0x8D, 0xE5, .2),
       200:Color.fromRGBO(0xB4, 0x8D, 0xE5, .3),
       300:Color.fromRGBO(0xB4, 0x8D, 0xE5, .4),

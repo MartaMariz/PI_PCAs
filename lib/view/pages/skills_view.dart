@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme.dart';
+
 class Skills extends StatefulWidget{
   @override
   _SkillsState createState() => _SkillsState();
@@ -15,7 +17,8 @@ class _SkillsState extends State<Skills>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Competências')
+        title: const Text('Competências', style: TextStyle(color: Colors.white),),
+        backgroundColor: mainColor,
       ),
       body: Text('Competências'),
     );
