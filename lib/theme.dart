@@ -21,3 +21,24 @@ class Palette{
       });
 
 }
+
+
+Map<int, Color> color =
+{
+      50:Color.fromRGBO(0xB4, 0x8D, 0xE5, .1),
+      100:Color.fromRGBO(0xB4, 0x8D, 0xE5, .2),
+      200:Color.fromRGBO(0xB4, 0x8D, 0xE5, .3),
+      300:Color.fromRGBO(0xB4, 0x8D, 0xE5, .4),
+      400:Color.fromRGBO(0xB4, 0x8D, 0xE5, .5),
+      500:Color.fromRGBO(0xB4, 0x8D, 0xE5, .6),
+      600:Color.fromRGBO(0xB4, 0x8D, 0xE5, .7),
+      700:Color.fromRGBO(0xB4, 0x8D, 0xE5, .8),
+      800:Color.fromRGBO(0xB4, 0x8D, 0xE5, .9),
+      900:Color.fromRGBO(0xB4, 0x8D, 0xE5, 1),
+};
+MaterialColor materialMainColor = MaterialColor(0xB48DE5, color);
+
+
+
+
+
