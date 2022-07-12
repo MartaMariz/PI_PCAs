@@ -17,15 +17,15 @@ class _MyStatefulWidgetState extends State<NavBar> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Home',
+      'Index 0: Conteúdo',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: Registo Diário',
       style: optionStyle,
     ),
     Text(
-      'Index 2: School',
+      'Index 2: Perfil',
       style: optionStyle,
     ),
   ];
@@ -39,18 +39,20 @@ class _MyStatefulWidgetState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: Icon(Icons.menu_book_rounded),
+          label: 'Conteúdo',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
+          icon: Icon(Icons.add_circle),
+          label: 'Registo Diário',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          label: 'School',
+          icon: Icon(Icons.person),
+          label: 'Perfil',
         ),
       ],
       currentIndex: _selectedIndex,
