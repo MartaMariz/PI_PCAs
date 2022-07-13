@@ -19,11 +19,8 @@ class _ProfileState extends State<Profile>{
           title: const Text('Perfil', style: TextStyle(color: Colors.white),),
         backgroundColor: mainColor,
       ),
-      body: SingleChildScrollView(
-
-        child: Container(
+        body: Container(
           padding : const EdgeInsets.all(16),
-          height: size.height,
           width: size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +56,6 @@ class _ProfileState extends State<Profile>{
                 height: 30,
               ),
               SizedBox(
-                height: size.height * .7,
                 width: size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +73,6 @@ class _ProfileState extends State<Profile>{
 
           )
         ),
-      )
     );
   }
 
