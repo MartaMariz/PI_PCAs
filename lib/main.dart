@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pi_pcas/view/pages/auth/auth_page_view.dart';
+import 'package:pi_pcas/view/pages/auth/login_view.dart';
+import 'package:pi_pcas/view/pages/auth/register_view.dart';
 
 import 'view/pages/home_page_view.dart';
 import 'theme.dart';
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: materialMainColor,
 
       ),
-      home: const MyHomePage(title: 'Intervenção PCAs'),
+      home:  AuthPage()
     );
   }
 }
