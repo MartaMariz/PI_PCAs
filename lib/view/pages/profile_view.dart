@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/view/pages/contacts_view.dart';
 
 import '../../theme.dart';
 
@@ -63,9 +64,9 @@ class _ProfileState extends State<Profile>{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
-                    ProfileButton (text: 'Editar Perfil', iconData: Icons.edit,),
-                    ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person,),
-                    ProfileButton (text: 'Definições', iconData: Icons.settings,),
+                    ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: Contacts(),),
+                    ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
+                    ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: Contacts()),
                   ],
 
                 ),
@@ -85,14 +86,20 @@ class _ProfileState extends State<Profile>{
 class ProfileButton extends StatelessWidget {
   final IconData iconData;
   final String text;
+  final Widget redirect;
   const ProfileButton({
-    Key? key, required this.iconData, required this.text
+    Key? key, required this.iconData, required this.text, required this.redirect
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () { print('tappedd');},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => redirect),
+        );
+        print('tappedd');},
       child: Container(
           padding : const EdgeInsets.symmetric(vertical:  18),
           child: Row(
