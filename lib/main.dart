@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
 
         primarySwatch: materialMainColor,
+        fontFamily: 'Mulish'
 
       ),
       home:  AuthPage()

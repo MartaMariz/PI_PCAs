@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/view/pages/add_record_view.dart';
 import 'package:pi_pcas/view/pages/profile_view.dart';
-import 'package:pi_pcas/view/pages/skills_view.dart';
+import 'package:pi_pcas/view/pages/modules_view.dart';
 
 import '../../theme.dart';
 
@@ -28,13 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentTab = 0;
 
   final List<Widget> screens = [
-    Skills(),
+    Modules(),
     AddRecord(),
     Profile(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Skills();
+  Widget currentScreen = Modules();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     minWidth:  40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Skills();
+                        currentScreen = Modules();
                         currentTab = 0;
                       });
                     },
