@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
 
         primarySwatch: materialMainColor,
+        fontFamily: 'Mulish'
 
       ),
       home: const MyHomePage(title: 'Intervenção PCAs'),
