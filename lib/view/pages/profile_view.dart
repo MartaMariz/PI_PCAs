@@ -11,6 +11,16 @@ class Profile extends StatefulWidget{
 }
 
 class _ProfileState extends State<Profile>{
+
+  List<String> profilePics = [
+    'lib/assets/images/bunny_icon.png',
+    'lib/assets/images/cat_icon.png',
+    'lib/assets/images/cow_icon.png',
+    'lib/assets/images/dog_icon.png',
+    'lib/assets/images/fox_icon.png',
+    'lib/assets/images/frog_icon.png'
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,10 +45,10 @@ class _ProfileState extends State<Profile>{
               ),
               Container(
                 width: 150,
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   radius : 60,
                   backgroundColor: Colors.transparent,
-                  backgroundImage:  ExactAssetImage('lib/assets/images/profile.jpg'),
+                  backgroundImage: ExactAssetImage(profilePics[3]),
                 ),
                 decoration:  BoxDecoration(
                   shape: BoxShape.circle,
@@ -52,13 +62,15 @@ class _ProfileState extends State<Profile>{
                 height: 10,
               ),
           SizedBox(
-            width: size.width * .3,
-            child: const Text('Marta Mariz',
-              style: TextStyle(fontSize: 20,
-              color: textGrayColor,
-              fontFamily: 'Mulish'),
+              width: size.width * .3,
+              child: const Text('user1',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20,
+                    color: textGrayColor,
+                    fontFamily: 'Mulish'),
+              ),
             ),
-          ),
+
               const SizedBox(
                 height: 30,
               ),
@@ -70,6 +82,7 @@ class _ProfileState extends State<Profile>{
                     ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: Contacts(),),
                     ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
                     ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: Contacts()),
+                    ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: Contacts()),
                   ],
 
                 ),
@@ -92,6 +105,7 @@ class ProfileButton extends StatelessWidget {
   const ProfileButton({
     Key? key, required this.iconData, required this.text, required this.redirect
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,4 +142,5 @@ class ProfileButton extends StatelessWidget {
       ),
     ) ;
   }
+
 }
