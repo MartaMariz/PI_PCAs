@@ -88,7 +88,6 @@ class _LoginCodePage extends State<LoginCodePage>{
                             padding: const EdgeInsets.only(left: 20.0),
                             child: TextField(
                               controller: _usernamaController,
-                              obscureText: true,
                               decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Username'
