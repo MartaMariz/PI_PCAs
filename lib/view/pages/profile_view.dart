@@ -16,7 +16,12 @@ class _ProfileState extends State<Profile>{
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Perfil', style: TextStyle(color: Colors.white),),
+        elevation:0.0,
+        centerTitle: true,
+          title: const Text('Perfil', style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: 'Mulish',
+              color: Colors.white),),
         backgroundColor: mainColor,
       ),
         body: Container(
@@ -33,7 +38,7 @@ class _ProfileState extends State<Profile>{
                 child: const CircleAvatar(
                   radius : 60,
                   backgroundColor: Colors.transparent,
-                  backgroundImage:  ExactAssetImage('/../assets/images/profile.jpg'),
+                  backgroundImage:  ExactAssetImage('lib/assets/images/profile.jpg'),
                 ),
                 decoration:  BoxDecoration(
                   shape: BoxShape.circle,
@@ -49,7 +54,9 @@ class _ProfileState extends State<Profile>{
           SizedBox(
             width: size.width * .3,
             child: const Text('Marta Mariz',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20,
+              color: textGrayColor,
+              fontFamily: 'Mulish'),
             ),
           ),
               const SizedBox(
@@ -102,17 +109,18 @@ class ProfileButton extends StatelessWidget {
             children: [
               Row(
                 children:  [
-                  Icon( iconData, size: 24),
+                  Icon( iconData, size: 24, color: textGrayColor,),
                   const SizedBox(width: 16,),
                   Text(text, style: const TextStyle(
                     fontSize:  18,
-                    fontWeight:  FontWeight.w600,
+                    color: textGrayColor,
+                    fontFamily: 'Mulish'
                   )
                   ),
 
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: textGrayColor,),
 
             ],
 
