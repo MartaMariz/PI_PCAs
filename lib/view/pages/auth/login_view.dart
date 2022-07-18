@@ -28,8 +28,9 @@ class _LoginPage extends State<LoginPage>{
     //usar os controllers.text e tals
     dynamic result = await _auth.logIn(_usernameController.text, _passwordController.text);
     if (result == null) {
-      print("smth went wrong");
-      return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Dados incorretos')),
+      );
     } else {
       print("go off sis");
       print(result);

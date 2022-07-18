@@ -34,16 +34,15 @@ class AuthService{
 
   Future<AppUser?> logIn(String username, String password) async{
     var userDoc = await DatabaseService().checkLogIn(username, password);
-    if (userDoc == null) {
-      print("merdou mais em cima");
-      return null;
-    }
-    else print(userDoc.docs.first.data() as dynamic);
+
+    if (userDoc == null) return null;
+    if (userDoc.docs.isEmpty) return null;
+
     var userInfo;
     userInfo = AppUser.fromJson(userDoc.docs.first.data() as
     Map<String, dynamic>, userDoc.docs.first.id);
     if (userInfo == null){
-      print("merdou :(");
+      print("problema");
       return null;
     }
     else {
