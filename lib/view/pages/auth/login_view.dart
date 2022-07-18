@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/view/pages/home_page_view.dart';
 
+import '../../../services/auth.dart';
 import '../../../theme.dart';
+import '../wrapper.dart';
 import 'login_code_view.dart';
 
 class LoginPage extends StatefulWidget{
@@ -17,16 +19,28 @@ class LoginPage extends StatefulWidget{
 
 class _LoginPage extends State<LoginPage>{
   //controllers
-  final _usernamaController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final AuthService _auth = AuthService();
 
   Future signIn() async{
     //usar os controllers.text e tals
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const MyHomePage(),
-    )
-    );
+    dynamic result = await _auth.logIn(_usernameController.text, _passwordController.text);
+    if (result == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Dados incorretos')),
+      );
+    } else {
+      print("go off sis");
+      print(result);
+    }
+    if (mounted){
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
 
   }
 
@@ -63,7 +77,7 @@ class _LoginPage extends State<LoginPage>{
                   child:  Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
-                        controller: _usernamaController,
+                        controller: _usernameController,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Username'
@@ -163,12 +177,6 @@ class _LoginPage extends State<LoginPage>{
                 ],
               ),
               const SizedBox( height: 50,),
-
-
-
-
-
-
 
             ],
 

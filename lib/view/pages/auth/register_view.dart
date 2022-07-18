@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../services/auth.dart';
 import '../../../theme.dart';
 import '../home_page_view.dart';
+import '../wrapper.dart';
 
 class RegisterPage extends StatefulWidget{
   final VoidCallback showLoginPage;
@@ -17,16 +19,17 @@ class RegisterPage extends StatefulWidget{
 class _RegisterPage extends State<RegisterPage>{
   //controllers
   final _codeController = TextEditingController();
-  final _usernamaController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
   final _key = GlobalKey<FormState>();
 
+  final AuthService _auth = AuthService();
 
   @override
   void dispose(){
     _codeController.dispose();
-    _usernamaController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
 
@@ -34,21 +37,29 @@ class _RegisterPage extends State<RegisterPage>{
 
   }
 
-  Future createAccount() async{
+  Future createAccount() async {
+
     //usar os controllers.text e tals
     if (_key.currentState!.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomePage(),
-          )
-      );
+
+      dynamic result = await _auth.signInAnon(_codeController.text, _usernameController.text, _passwordController.text);
+      if (result == null) {
+        print("smth went wrong");
+        return;
+      } else {
+        print("go off sis");
+        print(result);
+      }
     }
 
+    if (mounted){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
   }
 
   bool passwordConfirmed(){
@@ -64,7 +75,6 @@ class _RegisterPage extends State<RegisterPage>{
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
         body: SafeArea(
-          child: Expanded(
             child: Container(
                 child:Form(
                     key: _key,
@@ -140,7 +150,7 @@ class _RegisterPage extends State<RegisterPage>{
                                         }
                                         return null;
                                       },
-                                      controller: _usernamaController,
+                                      controller: _usernameController,
                                       decoration: const InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Username'
@@ -263,7 +273,6 @@ class _RegisterPage extends State<RegisterPage>{
                 )
 
             ),
-          )
         )
 
     );

@@ -5,6 +5,7 @@ import 'package:pi_pcas/view/pages/auth/reset_password_view.dart';
 import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../../theme.dart';
+import '../wrapper.dart';
 
 class LoginCodePage extends StatefulWidget{
   const LoginCodePage({Key? key}): super(key: key);
@@ -17,17 +18,17 @@ class LoginCodePage extends StatefulWidget{
 
 class _LoginCodePage extends State<LoginCodePage>{
   //controllers
-  final _usernamaController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _codeController = TextEditingController();
 
   Future resetPassword() async{
     //usar os controllers.text e tals
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ResetPasswordPage(),
-        )
-    );
-
+    if (mounted){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
   }
 
   @override
@@ -102,7 +103,6 @@ class _LoginCodePage extends State<LoginCodePage>{
                                       hintText: 'Código'
                                   ),
                                 )
-
                             )
                         )
                     ),
