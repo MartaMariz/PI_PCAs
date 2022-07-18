@@ -11,7 +11,7 @@ class DatabaseService{
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
 
   Future updateUserData(String userId, String username, String password, String code) async {
-    this.id = userId;
+    id = userId;
     return await userCollection.doc(userId).set({
       'username' : username,
       'password' : password,
@@ -30,14 +30,14 @@ class DatabaseService{
   }
 
   Stream<AppUser> userData(String userId) {
-    this.id = userId;
+    id = userId;
     return userCollection.doc(id).snapshots().map(userDataFromSnapshot);
   }
 
   AppUser userDataFromSnapshot(DocumentSnapshot snapshot){
     Map<String, dynamic> data = snapshot.data()! as Map<String, dynamic>;
     return AppUser(
-        id: this.id,
+        id: id,
         code: data['code'],
         username: data['username'],
         password: data['password'],

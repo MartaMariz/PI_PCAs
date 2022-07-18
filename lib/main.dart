@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<AppUser?>.value(
         initialData: null,
-        value:AuthService().user,
+        value: AuthService().user,
         child: MaterialApp(
             theme: ThemeData(
               // This is the theme of your application.

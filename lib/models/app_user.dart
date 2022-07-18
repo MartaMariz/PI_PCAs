@@ -17,4 +17,9 @@ class AppUser {
     return id;
   }
 
+  @override
+  String toString(){
+    return "id: " + id + " - code: " + code + " - username: " + username + " - password: " + password;
+  }
+
 }

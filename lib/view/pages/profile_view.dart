@@ -82,7 +82,7 @@ class _ProfileState extends State<Profile>{
                   );
                   }
                   else {
-                    return const Text("hello");
+                    return Text(user.username);
                   }
                 },
 

@@ -34,11 +34,12 @@ class _LoginPage extends State<LoginPage>{
       print("go off sis");
       print(result);
     }
-    Navigator.pushReplacement(
+    if (mounted){
+      Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Wrapper(),
-    )
-    );
+      MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
 
   }
 

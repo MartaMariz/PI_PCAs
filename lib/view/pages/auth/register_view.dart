@@ -37,15 +37,12 @@ class _RegisterPage extends State<RegisterPage>{
 
   }
 
-  Future createAccount() async{
+  Future createAccount() async {
 
     //usar os controllers.text e tals
     if (_key.currentState!.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
 
       dynamic result = await _auth.signInAnon(_codeController.text, _usernameController.text, _passwordController.text);
       if (result == null) {
@@ -54,12 +51,17 @@ class _RegisterPage extends State<RegisterPage>{
       } else {
         print("go off sis");
         print(result);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Processing Data')),
+        );
       }
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Wrapper(),
-          )
-      );
+      if (mounted){
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Wrapper(),
+            )
+        );
+      }
     }
 
   }
@@ -77,7 +79,6 @@ class _RegisterPage extends State<RegisterPage>{
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
         body: SafeArea(
-          child: Expanded(
             child: Container(
                 child:Form(
                     key: _key,
@@ -276,7 +277,6 @@ class _RegisterPage extends State<RegisterPage>{
                 )
 
             ),
-          )
         )
 
     );
