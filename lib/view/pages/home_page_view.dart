@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/view/pages/add_record_view.dart';
 import 'package:pi_pcas/view/pages/profile_view.dart';
-import 'package:pi_pcas/view/pages/modules_view.dart';
+import 'package:pi_pcas/view/pages/modules_home_view.dart';
 
 import '../../models/app_user.dart';
 import '../../theme.dart';
