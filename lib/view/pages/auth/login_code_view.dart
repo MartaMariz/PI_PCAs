@@ -15,7 +15,7 @@ class LoginCodePage extends StatefulWidget{
 
 class _LoginCodePage extends State<LoginCodePage>{
   //controllers
-  final _usernamaController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _codeController = TextEditingController();
 
   Future resetPassword() async{
@@ -87,7 +87,7 @@ class _LoginCodePage extends State<LoginCodePage>{
                         child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: TextField(
-                              controller: _usernamaController,
+                              controller: _usernameController,
                               decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Username'

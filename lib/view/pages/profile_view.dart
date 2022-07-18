@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/services/database.dart';
+import 'package:pi_pcas/view/pages/auth/logout_view.dart';
 import 'package:pi_pcas/view/pages/contacts_view.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/app_user.dart';
 import '../../theme.dart';
 
 class Profile extends StatefulWidget{
+
   @override
   _ProfileState createState() => _ProfileState();
 
@@ -23,7 +28,9 @@ class _ProfileState extends State<Profile>{
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AppUser?>(context);
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,
@@ -63,12 +70,23 @@ class _ProfileState extends State<Profile>{
               ),
           SizedBox(
               width: size.width * .3,
-              child: const Text('user1',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20,
+              child: StreamBuilder<AppUser>(
+                stream: DatabaseService().userData(user!.id),
+                builder: (context, snapshot){
+                  if (snapshot.hasData){
+                    return Text(snapshot.data!.username,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 20,
                     color: textGrayColor,
                     fontFamily: 'Mulish'),
-              ),
+                  );
+                  }
+                  else {
+                    return const Text("hello");
+                  }
+                },
+
+              )
             ),
 
               const SizedBox(
@@ -78,11 +96,11 @@ class _ProfileState extends State<Profile>{
                 width: size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: Contacts(),),
                     ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
                     ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: Contacts()),
-                    ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: Contacts()),
+                    ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: LogOutPage()),
                   ],
 
                 ),
@@ -102,10 +120,10 @@ class ProfileButton extends StatelessWidget {
   final IconData iconData;
   final String text;
   final Widget redirect;
-  const ProfileButton({
+
+  ProfileButton({
     Key? key, required this.iconData, required this.text, required this.redirect
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,32 +133,35 @@ class ProfileButton extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => redirect),
         );
-        print('tappedd');},
+        print('tappedd');
+      },
       child: Container(
-          padding : const EdgeInsets.symmetric(vertical:  18),
+          padding: const EdgeInsets.symmetric(vertical: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children:  [
-                  Icon( iconData, size: 24, color: textGrayColor,),
+                children: [
+                  Icon(iconData, size: 24, color: textGrayColor,),
                   const SizedBox(width: 16,),
                   Text(text, style: const TextStyle(
-                    fontSize:  18,
-                    color: textGrayColor,
-                    fontFamily: 'Mulish'
+                      fontSize: 18,
+                      color: textGrayColor,
+                      fontFamily: 'Mulish'
                   )
                   ),
 
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: textGrayColor,),
+              text != "LogOut" ?
+              const Icon(
+                Icons.arrow_forward_ios, size: 16, color: textGrayColor,)
+              : const SizedBox(width: 0.0,),
 
             ],
 
           )
       ),
-    ) ;
+    );
   }
-
 }
