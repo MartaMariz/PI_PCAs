@@ -1,32 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/models/submodule.dart';
+import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../models/module.dart';
 import '../../theme.dart';
-import '../pages/module_view.dart';
 
-class ModuleCard extends StatelessWidget{
+class SubModuleCard extends StatelessWidget{
 
-  Module module;
+  SubModule subModule;
 
-  ModuleCard(this.module);
+  SubModuleCard(this.subModule, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
     return GestureDetector(
       onTap: () async {
-        if (module.locked){
+        if (subModule.locked){
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
-            title: Text('Ainda não desbloqueaste este módulo'),
-            content: Text('Completa os módulos anteriores para poderes aceder a este conteúdo, boa sorte!'),
-          ),
-          barrierDismissible: true)
+                title: Text('Ainda não desbloqueaste este submódulo'),
+                content: Text('Completa os submódulos anteriores para poderes aceder a este conteúdo, boa sorte!'),
+              ),
+              barrierDismissible: true)
           ;
         }
         else {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ModulePage(module: module,),));
+            builder: (context) =>MyHomePage(),));
 
         }
       },
@@ -66,7 +67,7 @@ class ModuleCard extends StatelessWidget{
                 left: 15,
                 top:25,
                 child: Text(
-                    this.module.name,
+                    this.subModule.name,
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Mulish',
@@ -77,7 +78,7 @@ class ModuleCard extends StatelessWidget{
               Positioned(
                   right: 25,
                   top:30,
-                  child: getIcon(this.module)
+                  child: getIcon(this.subModule)
               )
             ],
           )
@@ -86,7 +87,7 @@ class ModuleCard extends StatelessWidget{
   }
 
 
-  Widget getIcon(Module mod){
+  Widget getIcon(SubModule mod){
     if (mod.locked) return Icon(Icons.lock, color: Colors.white);
     else return Text("");
   }
