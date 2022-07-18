@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
 import '../../theme.dart';
+import 'edit_profile_view.dart';
 
 class Profile extends StatefulWidget{
 
@@ -97,7 +98,7 @@ class _ProfileState extends State<Profile>{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: Contacts(),),
+                    ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: EditPage(user: user)),
                     ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
                     ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: Contacts()),
                     ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: LogOutPage()),
