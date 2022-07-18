@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/view/pages/auth/auth_page_view.dart';
+import 'package:pi_pcas/view/pages/auth/reset_password_view.dart';
 import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../../theme.dart';
@@ -22,7 +24,7 @@ class _LoginCodePage extends State<LoginCodePage>{
     //usar os controllers.text e tals
     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MyHomePage(),
+        MaterialPageRoute(builder: (context) => const ResetPasswordPage(),
         )
     );
 
@@ -41,7 +43,13 @@ class _LoginCodePage extends State<LoginCodePage>{
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => AuthPage(),
+                            )
+                        );
+                      },
                       color: mainColor,
                       textColor: Colors.white,
                       child: const Icon(
@@ -129,13 +137,13 @@ class _LoginCodePage extends State<LoginCodePage>{
                       child: GestureDetector(
                         onTap: resetPassword,
                         child: Container(
-                            padding: const EdgeInsets.fromLTRB(160, 10, 160, 10),
+                            padding: const EdgeInsets.fromLTRB(140, 10, 140, 10),
                             decoration:  BoxDecoration(
                               color: mainColor,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Text(
-                                'Next',
+                                'Próximo',
                                 style: TextStyle(
                                     color:  Colors.white,
                                     fontWeight: FontWeight.bold,
