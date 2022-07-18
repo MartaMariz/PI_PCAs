@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../../theme.dart';
+import '../wrapper.dart';
 
 class LoginCodePage extends StatefulWidget{
   const LoginCodePage({Key? key}): super(key: key);
@@ -20,12 +20,12 @@ class _LoginCodePage extends State<LoginCodePage>{
 
   Future resetPassword() async{
     //usar os controllers.text e tals
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MyHomePage(),
-        )
-    );
-
+    if (mounted){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
   }
 
   @override

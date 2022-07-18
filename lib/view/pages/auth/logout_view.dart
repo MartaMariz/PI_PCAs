@@ -24,11 +24,17 @@ class _LogOutPage extends State<LogOutPage>{
     );
   }
 
+  Future cancel() async{
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
@@ -41,8 +47,7 @@ class _LogOutPage extends State<LogOutPage>{
                 const SizedBox( height: 50,),
 
                 //signout button
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                Container(
                   child: GestureDetector(
                     onTap: signOut,
                     child: Container(
@@ -52,7 +57,7 @@ class _LogOutPage extends State<LogOutPage>{
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Text(
-                            'Log Out',
+                            'Sim',
                             style: TextStyle(
                                 color:  Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -62,10 +67,33 @@ class _LogOutPage extends State<LogOutPage>{
                     ),
                   ),
                 ),
-                const SizedBox( height: 75,),
+                const SizedBox( height: 10),
+                //cancel button
+                Container(
+                  child: GestureDetector(
+                    onTap: cancel,
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
+                        decoration:  BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Text(
+                            'Não',
+                            style: TextStyle(
+                                color:  Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18
+                            )
+                        )
+                    ),
+                  ),
+                ),
               ],
 
             )
+          ),
+
 
         )
 

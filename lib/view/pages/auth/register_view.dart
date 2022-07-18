@@ -51,19 +51,15 @@ class _RegisterPage extends State<RegisterPage>{
       } else {
         print("go off sis");
         print(result);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Processing Data')),
-        );
-      }
-      if (mounted){
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Wrapper(),
-            )
-        );
       }
     }
 
+    if (mounted){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Wrapper(),)
+      );
+    }
   }
 
   bool passwordConfirmed(){

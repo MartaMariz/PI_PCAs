@@ -15,6 +15,7 @@ class AuthService{
   //sign in anon (register - create id)
   Future signInAnon(String code, String username, String password) async{
     try{
+      globals.currentUser = AppUser.withoutId(username, password, code);
       UserCredential result = await _auth.signInAnonymously();
       User? user = result.user;
 
@@ -22,7 +23,7 @@ class AuthService{
       if (user != null) {
         await DatabaseService().updateUserData(
             user.uid, username, password, code);
-            globals.currentUser = AppUser(id: user.uid, username: username, password: password, code: code);
+        globals.currentUser?.setId(user.uid);
       }
       return _getCurrentUser(user);
     } catch (e) {
@@ -50,7 +51,6 @@ class AuthService{
     }
 
     //só para o Provider saber que alguém está logged in
-
     globals.currentUser = userInfo;
     UserCredential result = await _auth.signInAnonymously();
     User? userAnon = result.user;
@@ -67,8 +67,10 @@ class AuthService{
 
   //sign out
   Future signOut() async {
+    globals.currentUser = null;
     try {
-      return await _auth.signOut();
+      var sign = await _auth.signOut();
+      return sign;
     } catch(e) {
       print(e.toString());
       return null;
