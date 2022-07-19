@@ -31,7 +31,7 @@ class _EditPage extends State<EditPage>{
 
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
-  final int _imageController = -1;
+  static late int _imageController = -1;
   final user;
 
   final DatabaseService _database = DatabaseService();
@@ -57,9 +57,12 @@ class _EditPage extends State<EditPage>{
     }
   }
 
+  Future cancel() async{
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
@@ -70,18 +73,37 @@ class _EditPage extends State<EditPage>{
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children:  [
-                      CircleAvatar(
-                        radius : 60,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: ExactAssetImage(nullPic),
-                      ),
-                      const SizedBox( height: 50,),
                       const Text('Preencha apenas os dados que deseja modificar',
                           style: TextStyle(
                             fontSize:16,
                           )
                       ),
+                      const SizedBox( height: 50,),
 
+                      CircleAvatar(
+                        radius : 60,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: _imageController == -1?
+                        ExactAssetImage(nullPic) : ExactAssetImage(profilePics[_imageController]),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child:  GestureDetector(
+                            onTap: (){
+                              showDialog(context: context,
+                                  builder: (BuildContext context) => showPics);
+                            },
+                            child: const CircleAvatar(
+                            backgroundColor: mainColor,
+                            radius: 14.0,
+                            child: Icon(
+                              Icons.brush,
+                              size: 16.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                          ),
+                        ),
+                      ),
                       const SizedBox( height: 30,),
                       //username input
                       Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -113,7 +135,7 @@ class _EditPage extends State<EditPage>{
                               )
                           )
                       ),
-                      const SizedBox( height: 10,),
+                      const SizedBox( height: 30,),
 
                       //edit button
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0),
@@ -136,8 +158,29 @@ class _EditPage extends State<EditPage>{
                           ),
                         ),
                       ),
-                      const SizedBox( height: 50,),
+                      const SizedBox( height: 10,),
 
+                      //cancel button
+                      Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        child: GestureDetector(
+                          onTap: cancel,
+                          child: Container(
+                              padding: const EdgeInsets.fromLTRB(120, 10, 120, 10),
+                              decoration:  BoxDecoration(
+                                color: Colors.grey[400],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                      color:  Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18
+                                  )
+                              )
+                          ),
+                        ),
+                      ),
                     ],
 
                   )
@@ -148,6 +191,65 @@ class _EditPage extends State<EditPage>{
 
     );
   }
+
+  Dialog showPics = Dialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+    elevation: 16,
+    child: Container(
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          SizedBox(height: 20),
+          Center(child: Text('Escolha uma imagem:')),
+          SizedBox(height: 20),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {_imageController = 0;},
+                    child: Image.asset("lib/assets/images/bunny_icon.png", width: 150),
+                  ),
+                  GestureDetector(
+                    onTap: () {_imageController = 1;},
+                    child: Image.asset("lib/assets/images/cat_icon.png", width: 150),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {_imageController = 2;},
+                    child: Image.asset("lib/assets/images/cow_icon.png", width: 150),
+                  ),
+                  GestureDetector(
+                    onTap: () {_imageController = 3;},
+                    child: Image.asset("lib/assets/images/dog_icon.png", width: 150),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {_imageController = 4;},
+                    child: Image.asset("lib/assets/images/fox_icon.png", width: 150)
+                    ),
+                  GestureDetector(
+                    onTap: () {_imageController = 5;},
+                    child: Image.asset("lib/assets/images/frog_icon.png", width: 150),
+                  )
+                ],
+              )
+            ],
+          )
+
+        ],
+      ),
+    ),
+  );
 
 
 }
