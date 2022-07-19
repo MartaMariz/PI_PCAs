@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/submodule.dart';
 import 'package:pi_pcas/view/pages/home_page_view.dart';
 
-import '../../models/module.dart';
+import '../../models/submodule.dart';
 import '../../theme.dart';
 
 class SubModuleCard extends StatelessWidget{

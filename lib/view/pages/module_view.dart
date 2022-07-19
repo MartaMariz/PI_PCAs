@@ -17,7 +17,6 @@ class ModulePage extends StatefulWidget{
 
 }
 
-
 class _ModulePage extends State<ModulePage>{
 
   @override
@@ -32,20 +31,14 @@ class _ModulePage extends State<ModulePage>{
         ),),
         backgroundColor: mainColor,
       ),
-      body: SingleChildScrollView(
+      body: Container(
         padding: const EdgeInsets.all(25.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(widget.module.description,
               style: mainTextStyle,),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.module.submodules.length,
-                  itemBuilder: (BuildContext ctx, int index){
-                    return SubModuleCard(widget.module.submodules[index]);
-                  },
-                )
-
+            const SizedBox(height: 30,)
           ],
         ),
       ),
