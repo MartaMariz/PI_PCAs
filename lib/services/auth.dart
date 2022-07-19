@@ -1,17 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pi_pcas/models/app_user.dart';
 import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/helpers/globals.dart' as globals;
 
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
-  AppUser? _getCurrentUser(User? user){
-    return user != null ? globals.currentUser : null;
+  
+  AppUser? _userFromFirebase(User ? user){
+    return user != null ? AppUser(id: user.uid) : null;
   }
 
+/*
   //sign in anon (register - create id)
   Future signInAnon(String code, String username, String password) async{
     try{
@@ -31,7 +30,31 @@ class AuthService{
       return null;
     }
   }
+*/
 
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return _userFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return _userFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  /*
   Future<AppUser?> logIn(String username, String password) async{
     var userDoc = await DatabaseService().checkLogIn(username, password);
 
@@ -57,16 +80,16 @@ class AuthService{
     print("current:"+ globals.currentUser.toString());
     return _getCurrentUser(userAnon);
   }
+   */
 
 
   //auth change user stream
   Stream<AppUser?> get user {
-      return _auth.authStateChanges().map((_getCurrentUser));
+      return _auth.authStateChanges().map(_userFromFirebase);
   }
 
   //sign out
   Future signOut() async {
-    globals.currentUser = null;
     try {
       var sign = await _auth.signOut();
       return sign;

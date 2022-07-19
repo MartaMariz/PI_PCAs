@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/services/database.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';
@@ -19,16 +22,19 @@ class _RegisterPage extends State<RegisterPage>{
   //controllers
   final _codeController = TextEditingController();
   final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
   final _key = GlobalKey<FormState>();
 
   final AuthService _auth = AuthService();
+  final DatabaseService _database = DatabaseService();
 
   @override
   void dispose(){
     _codeController.dispose();
     _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
 
@@ -42,12 +48,24 @@ class _RegisterPage extends State<RegisterPage>{
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
 
-      dynamic result = await _auth.signInAnon(_codeController.text, _usernameController.text, _passwordController.text);
+      dynamic result = await _auth.registerWithEmailAndPassword(_emailController.text, _passwordController.text);
+
       if (result == null) {
-        print("smth went wrong");
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email não é válido')),
+        );
         return;
       } else {
         print("go off sis");
+        dynamic result2 = await _database.updateUserData(result.id, _usernameController.text, Random().nextInt(6), _codeController.text);
+
+        if (result2 == null){
+          print("base de dados cockou");
+          return;
+        } else{
+          print("go off again");
+          print(result2);
+        }
         print(result);
       }
     }
@@ -160,6 +178,37 @@ class _RegisterPage extends State<RegisterPage>{
                         ),
                         const SizedBox( height: 10,),
 
+                        //email input
+                        Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[50],
+                                  border: Border.all(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child:  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty || value.length <8)  {
+                                          return 'Username deve ter pelo menos 8 caracteres';
+                                        }
+                                        if (value == 'martamariz')  {
+                                          return 'Username já está a ser utilizado';
+                                        }
+                                        return null;
+                                      },
+                                      controller: _emailController,
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Email'
+                                      ),
+                                    )
+
+                                )
+                            )
+                        ),
+                        const SizedBox( height: 10,),
 
                         //password input
                         Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
