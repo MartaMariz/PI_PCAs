@@ -6,6 +6,7 @@ import 'package:pi_pcas/view/pages/contacts_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
+import '../../models/user_data.dart';
 import '../../theme.dart';
 
 class Profile extends StatefulWidget{
@@ -52,10 +53,21 @@ class _ProfileState extends State<Profile>{
               ),
               Container(
                 width: 150,
-                child: CircleAvatar(
-                  radius : 60,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: ExactAssetImage(profilePics[3]),
+                child: StreamBuilder<UserData>(
+                  stream: DatabaseService().userData(user!.id),
+                  builder: (context, snapshot){
+                    if (snapshot.hasData){
+                      return CircleAvatar(
+                        radius : 60,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: ExactAssetImage(profilePics[snapshot.data!.image]),
+                      );
+                    }
+                    else {
+                      return Text("");
+                    }
+                  },
+
                 ),
                 decoration:  BoxDecoration(
                   shape: BoxShape.circle,
@@ -70,8 +82,8 @@ class _ProfileState extends State<Profile>{
               ),
           SizedBox(
               width: size.width * .3,
-              child: StreamBuilder<AppUser>(
-                stream: DatabaseService().userData(user!.id),
+              child: StreamBuilder<UserData>(
+                stream: DatabaseService().userData(user.id),
                 builder: (context, snapshot){
                   if (snapshot.hasData){
                     return Text(snapshot.data!.username,
@@ -82,10 +94,9 @@ class _ProfileState extends State<Profile>{
                   );
                   }
                   else {
-                    return Text(user.username);
+                    return Text("");
                   }
                 },
-
               )
             ),
 
