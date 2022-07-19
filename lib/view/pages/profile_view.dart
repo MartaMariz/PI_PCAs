@@ -31,6 +31,7 @@ class _ProfileState extends State<Profile>{
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

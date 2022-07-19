@@ -11,6 +11,7 @@ class UserData {
     String username = json['username'];
     int image = json['image'];
 
+    print(code);
     return UserData(id: id, username: username, code: code, image: image);
   }
 
