@@ -2,10 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
+import 'package:pi_pcas/view/pages/submodels_list_view.dart';
 import 'package:pi_pcas/view/widgets/submodel_card.dart';
 
 import '../../theme.dart';
 import '../widgets/module_card.dart';
+import 'home_page_view.dart';
 
 class ModulePage extends StatefulWidget{
   final Module module;
@@ -19,6 +21,18 @@ class ModulePage extends StatefulWidget{
 
 class _ModulePage extends State<ModulePage>{
 
+
+  Future showSubmodelList() async{
+    //usar os controllers.text e tals
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SubmodelListView(module : widget.module),
+          )
+      );
+    }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,17 +45,38 @@ class _ModulePage extends State<ModulePage>{
         ),),
         backgroundColor: mainColor,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(25.0),
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(widget.module.description,
-              style: mainTextStyle,),
-            const SizedBox(height: 30,)
-          ],
-        ),
+          children : [
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 50,),
+                  Text(widget.module.description,
+                style: mainTextStyle,),
+                ]
+            )
+          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [MaterialButton(
+                onPressed: showSubmodelList,
+                color: mainColor,
+                textColor: Colors.white,
+                child: const Icon(
+                  Icons.arrow_forward,
+                  size: 24,
+                ),
+                padding: EdgeInsets.all(16),
+                shape: CircleBorder(),
+              )],
+            ),
+            const SizedBox( height: 50,),
+          ]
+        )
       ),
+
     );
   }
 

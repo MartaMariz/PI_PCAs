@@ -10,6 +10,8 @@ import '../widgets/module_card.dart';
 
 
 class Modules extends StatefulWidget{
+  const Modules({Key? key}) : super(key: key);
+
   @override
   _ModulesState createState() => _ModulesState();
 

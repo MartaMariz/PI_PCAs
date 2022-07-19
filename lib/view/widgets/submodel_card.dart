@@ -27,7 +27,7 @@ class SubModuleCard extends StatelessWidget{
         }
         else {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>MyHomePage(),));
+            builder: (context) =>const MyHomePage(),));
 
         }
       },
@@ -71,7 +71,7 @@ class SubModuleCard extends StatelessWidget{
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Mulish',
-                      fontSize: 25,
+                      fontSize: 12,
                     )
                 ),
               ),

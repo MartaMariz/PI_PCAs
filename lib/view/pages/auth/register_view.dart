@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/services/database.dart';
 
+import '../../../services/auth.dart';
 import '../../../theme.dart';
 import '../home_page_view.dart';
+import '../wrapper.dart';
 
 class RegisterPage extends StatefulWidget{
   final VoidCallback showLoginPage;
@@ -17,16 +22,20 @@ class RegisterPage extends StatefulWidget{
 class _RegisterPage extends State<RegisterPage>{
   //controllers
   final _codeController = TextEditingController();
-  final _usernamaController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
   final _key = GlobalKey<FormState>();
 
+  final AuthService _auth = AuthService();
+  final DatabaseService _database = DatabaseService();
 
   @override
   void dispose(){
     _codeController.dispose();
-    _usernamaController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
 
@@ -34,21 +43,41 @@ class _RegisterPage extends State<RegisterPage>{
 
   }
 
-  Future createAccount() async{
+  Future createAccount() async {
+
     //usar os controllers.text e tals
     if (_key.currentState!.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomePage(),
-          )
-      );
+
+      dynamic result = await _auth.registerWithEmailAndPassword(_emailController.text, _passwordController.text);
+
+      if (result == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email não é válido')),
+        );
+        return;
+      } else {
+        print("go off sis");
+        dynamic result2 = await _database.updateUserData(result.id, _usernameController.text, Random().nextInt(6), _codeController.text);
+
+        if (result2 == null){
+          print("base de dados cockou");
+          return;
+        } else{
+          print("go off again");
+          print(result2);
+        }
+        print(result);
+      }
     }
 
+    if (mounted){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage(),)
+      );
+    }
   }
 
   bool passwordConfirmed(){
@@ -64,7 +93,6 @@ class _RegisterPage extends State<RegisterPage>{
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
         body: SafeArea(
-          child: Expanded(
             child: Container(
                 child:Form(
                     key: _key,
@@ -140,7 +168,7 @@ class _RegisterPage extends State<RegisterPage>{
                                         }
                                         return null;
                                       },
-                                      controller: _usernamaController,
+                                      controller: _usernameController,
                                       decoration: const InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Username'
@@ -152,6 +180,37 @@ class _RegisterPage extends State<RegisterPage>{
                         ),
                         const SizedBox( height: 10,),
 
+                        //email input
+                        Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[50],
+                                  border: Border.all(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child:  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty || value.length <8)  {
+                                          return 'Username deve ter pelo menos 8 caracteres';
+                                        }
+                                        if (value == 'martamariz')  {
+                                          return 'Username já está a ser utilizado';
+                                        }
+                                        return null;
+                                      },
+                                      controller: _emailController,
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Email'
+                                      ),
+                                    )
+
+                                )
+                            )
+                        ),
+                        const SizedBox( height: 10,),
 
                         //password input
                         Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -263,7 +322,6 @@ class _RegisterPage extends State<RegisterPage>{
                 )
 
             ),
-          )
         )
 
     );
