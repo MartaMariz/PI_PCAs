@@ -19,22 +19,27 @@ class LoginPage extends StatefulWidget{
 
 class _LoginPage extends State<LoginPage>{
   //controllers
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   final AuthService _auth = AuthService();
 
   Future signIn() async{
     //usar os controllers.text e tals
-    dynamic result = await _auth.logIn(_usernameController.text, _passwordController.text);
+
+
+    dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passwordController.text);
     if (result == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Dados incorretos')),
       );
+      return;
     } else {
       print("go off sis");
       print(result);
     }
+
+
     if (mounted){
       Navigator.pushReplacement(
         context,
@@ -77,10 +82,10 @@ class _LoginPage extends State<LoginPage>{
                   child:  Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
-                        controller: _usernameController,
+                        controller: _emailController,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Username'
+                            hintText: 'Email'
                         ),
                       )
 
