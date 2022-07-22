@@ -23,7 +23,7 @@ class Contacts extends StatelessWidget{
         width: size.width,
         child: RichText(
           text: const TextSpan(
-            style: TextStyle(color: Colors.black38,  fontSize: 18, height: 1.2),
+            style: TextStyle(color: Colors.black38,  fontSize: 18, height: 1.2, fontFamily:  'Mulish'),
             children: [
               TextSpan(
                   text:  'Conversa com o teu médico de família sobre os teus sintomas e dificuldades. Ele irá encaminhar-te para o serviço de Psicologia mais adequado às tuas necessidades.\n'),
