@@ -5,7 +5,7 @@ import 'package:pi_pcas/view/pages/home_page_view.dart';
 import '../../../services/auth.dart';
 import '../../../theme.dart';
 import '../wrapper.dart';
-import 'login_code_view.dart';
+import 'forgot_password.dart';
 
 class LoginPage extends StatefulWidget{
   final VoidCallback showRegisterPage;
@@ -121,7 +121,7 @@ class _LoginPage extends State<LoginPage>{
               GestureDetector(
                 onTap: (){
                   Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => const LoginCodePage()
+                    context, MaterialPageRoute(builder: (context) => const ForgotPassword()
                   )
                   );
                 },
