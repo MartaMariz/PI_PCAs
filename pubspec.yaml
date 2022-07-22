@@ -68,6 +68,8 @@ flutter:
     - lib/assets/images/dog_icon.png
     - lib/assets/images/fox_icon.png
     - lib/assets/images/frog_icon.png
+    - lib/assets/images/null_icon.png
+
 
   #   - images/a_dot_ham.jpeg
 

@@ -6,7 +6,6 @@ import 'package:pi_pcas/services/database.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';
-import '../home_page_view.dart';
 import '../wrapper.dart';
 
 class RegisterPage extends StatefulWidget{
@@ -40,7 +39,6 @@ class _RegisterPage extends State<RegisterPage>{
     _passwordConfirmController.dispose();
 
     super.dispose();
-
   }
 
   Future createAccount() async {

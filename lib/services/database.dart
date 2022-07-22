@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/app_user.dart';
 import '../models/user_data.dart';
 
 class DatabaseService{
@@ -45,5 +44,25 @@ class DatabaseService{
         code: data['code'],
         image: data['image']
     );
+  }
+
+  Future<UserData?> retrieveCurrentData(String id) async {
+    var doc = await userCollection.doc(id).get();
+
+    if (doc == null) return null;
+    else print(doc.data().toString());
+    //bool empty = await doc.exists;
+    //if (empty) return null;
+
+    var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
+    if (userInfo == null){
+      print("problema");
+      return null;
+    }
+    else {
+      print("foi porra");
+      print(userInfo.toString());
+    }
+    return userInfo;
   }
 }
