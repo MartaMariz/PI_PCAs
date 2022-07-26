@@ -49,22 +49,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add, color: Colors.white,),
-        backgroundColor: mainColor,
-        onPressed: () {
-          setState(() {
-            currentScreen = AddRecord();
-            currentTab = 1;
-          });
-        },
-      ),
+      floatingActionButton:
+        currentTab != 1 ?
+        FloatingActionButton(
+          child: const Icon(Icons.add, color: Colors.white,),
+          backgroundColor: mainColor,
+          onPressed: () {
+            setState(() {
+              currentScreen = AddRecord();
+              currentTab = 1;
+            });
+          },
+        ) : SizedBox(width: 0,),
       floatingActionButtonLocation:  FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Container(
+        bottomNavigationBar:  currentTab != 1? BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: SizedBox(
           height: 70,
-          child:  Row(
+          child: Row(
             mainAxisAlignment:  MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -85,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: currentTab == 0? mainColor : Colors.grey,
                         )
                     )
-
                 ],
               ),
               Row(
@@ -106,15 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         size: 40,
                       )
                   )
-
                 ],
-
               )
-
             ],
-          ),
+          )
         )
-      )
+      ) : const SizedBox(width: 0, height: 0),
     );
   }
 }

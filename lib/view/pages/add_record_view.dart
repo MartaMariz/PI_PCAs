@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/view/pages/wrapper.dart';
 
 import '../../models/meal.dart';
 import '../../theme.dart';
@@ -10,7 +11,6 @@ class AddRecord extends StatefulWidget{
   _RecordState createState() => _RecordState();
 
 }
-
 
 class _RecordState extends State<AddRecord>{
 
@@ -29,7 +29,7 @@ class _RecordState extends State<AddRecord>{
     "Dezembro"
   ];
 
-  List<Meal> meals = [
+  static List<Meal> meals = [
     Meal.incomplete("Pequeno Almoço"),
     Meal.incomplete("Lanche da Manhã"),
     Meal.incomplete("Almoço"),
@@ -38,12 +38,22 @@ class _RecordState extends State<AddRecord>{
     Meal.incomplete("Ceia")
   ];
 
+
   @override
   Widget build(BuildContext context) {
     String title = DateTime.now().day.toString() + " de " + months[DateTime.now().month-1];
     return Scaffold(
       appBar: AppBar(
-        elevation:0.0,
+        actions: <Widget>[
+        IconButton(
+            icon: const Icon(Icons.clear_rounded, color: Colors.white,),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Wrapper())); },
+          ),
+        ],
+        elevation: 0.0,
         centerTitle: true,
         title: Text(title, style: const TextStyle(color: Colors.white,
         fontFamily: 'Mulish',
@@ -51,6 +61,20 @@ class _RecordState extends State<AddRecord>{
         )),
         backgroundColor: mainColor,
       ),
+        /*
+        floatingActionButton:
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: FloatingActionButton(
+                child: const Icon(Icons.done_rounded, color: Colors.white,),
+                backgroundColor: mainColor,
+                onPressed: () {
+
+                },
+              ),
+            ),
+      floatingActionButtonLocation:  FloatingActionButtonLocation.centerDocked,
+         */
       body: SingleChildScrollView(
         child: ExpansionPanelList.radio(
           expandedHeaderPadding: EdgeInsets.all(0),
@@ -65,10 +89,10 @@ class _RecordState extends State<AddRecord>{
                 title: Text(meal.meal,
                 style: const TextStyle(fontSize: 18, color: textGrayColor),),
               ),
-              body: MealCard(meal: meal)))
+              body: MealCard(meal: meal, day: title)))
           .toList(),
         ),
-      )
+      ),
     );
   }
 

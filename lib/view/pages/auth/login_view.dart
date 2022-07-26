@@ -36,7 +36,6 @@ class _LoginPage extends State<LoginPage>{
       print(result);
     }
 
-
     if (mounted){
       Navigator.pushReplacement(
         context,
