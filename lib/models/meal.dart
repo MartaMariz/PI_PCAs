@@ -26,7 +26,7 @@ class Meal {
       day: json['day'],
       meal: json['meal'],
       feeling: json['feeling'],
-      share: json['share']
+      share: json['share'],
   );
 
 }

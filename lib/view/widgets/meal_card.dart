@@ -58,7 +58,11 @@ class _MealCardState extends State<MealCard>{
   Future sendData() async{
     widget.meal.day = widget.day;
     widget.meal.skipped = skipped;
-    widget.meal.time = _timeController.text;
+    if (_timeController.text != "Escolha hora") {
+      widget.meal.time = _timeController.text;
+    } else {
+
+    }
     widget.meal.share = share;
     widget.meal.feeling = feeling;
     widget.meal.food = _foodController.text;

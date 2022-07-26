@@ -58,23 +58,33 @@ class DatabaseService{
     );
   }
 
-  Future<UserData?> retrieveCurrentData(String id) async {
+  Future<UserData?> retrieveCurrentUserData(String id) async {
     var doc = await userCollection.doc(id).get();
 
     if (doc == null) return null;
     else print(doc.data().toString());
-    //bool empty = await doc.exists;
-    //if (empty) return null;
 
     var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
     if (userInfo == null){
       print("problema");
       return null;
     }
-    else {
-      print("foi porra");
-      print(userInfo.toString());
+    else
+      return userInfo;
+  }
+
+  Future<Meal?> retrieveCurrentRecordData(String userId, String day, String meal) async {
+    var doc = await userCollection.doc(userId+"-"+day+"-"+meal).get();
+
+    if (doc == null) return null;
+    else print(doc.data().toString());
+
+    var mealRetrieved = Meal.fromJson(doc.data() as Map<String, dynamic>);
+    if (mealRetrieved == null){
+      print("problema");
+      return null;
     }
-    return userInfo;
+    else
+      return mealRetrieved;
   }
 }
