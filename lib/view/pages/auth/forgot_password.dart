@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/view/pages/auth/auth_page_view.dart';
-import 'package:pi_pcas/view/pages/auth/reset_password_view.dart';
-import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';
-import '../wrapper.dart';
 
 class ForgotPassword extends StatefulWidget{
   const ForgotPassword({Key? key}): super(key: key);

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/meal.dart';
 import '../models/user_data.dart';
 
 class DatabaseService{
@@ -9,6 +10,7 @@ class DatabaseService{
   //collection reference
   final CollectionReference moduleCollection = FirebaseFirestore.instance.collection('module');
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
+  final CollectionReference recordCollection = FirebaseFirestore.instance.collection('record');
 
   Future updateUserData(String userId, String username, int image, String code) async {
     id = userId;
@@ -19,17 +21,27 @@ class DatabaseService{
     });
   }
 
-  /*
-  Future<QuerySnapshot<Object?>?> checkLogIn(String username, String password) async {
-    final user = userCollection.where('username', isEqualTo: username).where('password', isEqualTo: password).snapshots();
-    final empty = await user.isEmpty;
-    if (empty) return null;
+  Future updateRecordData(String userId, Meal meal) async {
+    id = userId;
+    if (meal.skipped) {
+      return await recordCollection.doc(userId+"-"+meal.day+"-"+meal.meal).set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userId,
+        'skipped' : meal.skipped,
+    });}
     else {
-      final userDoc = await user.first;
-      return userDoc;
+      return await recordCollection.doc(userId+"-"+meal.day+"-"+meal.meal).set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userId,
+        'food' : meal.food,
+        'time' : meal.time,
+        'feeling' : meal.feeling,
+        'share' : meal.share,
+      });
     }
   }
-  */
 
   Stream<UserData> userData(String userId) {
     id = userId;
@@ -46,23 +58,33 @@ class DatabaseService{
     );
   }
 
-  Future<UserData?> retrieveCurrentData(String id) async {
+  Future<UserData?> retrieveCurrentUserData(String id) async {
     var doc = await userCollection.doc(id).get();
 
     if (doc == null) return null;
     else print(doc.data().toString());
-    //bool empty = await doc.exists;
-    //if (empty) return null;
 
     var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
     if (userInfo == null){
       print("problema");
       return null;
     }
-    else {
-      print("foi porra");
-      print(userInfo.toString());
+    else
+      return userInfo;
+  }
+
+  Future<Meal?> retrieveCurrentRecordData(String userId, String day, String meal) async {
+    var doc = await userCollection.doc(userId+"-"+day+"-"+meal).get();
+
+    if (doc == null) return null;
+    else print(doc.data().toString());
+
+    var mealRetrieved = Meal.fromJson(doc.data() as Map<String, dynamic>);
+    if (mealRetrieved == null){
+      print("problema");
+      return null;
     }
-    return userInfo;
+    else
+      return mealRetrieved;
   }
 }

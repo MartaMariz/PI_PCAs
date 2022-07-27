@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/view/pages/home_page_view.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';
@@ -25,8 +24,6 @@ class _LoginPage extends State<LoginPage>{
   final AuthService _auth = AuthService();
 
   Future signIn() async{
-    //usar os controllers.text e tals
-
 
     dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passwordController.text);
     if (result == null) {
@@ -38,7 +35,6 @@ class _LoginPage extends State<LoginPage>{
       print("go off sis");
       print(result);
     }
-
 
     if (mounted){
       Navigator.pushReplacement(

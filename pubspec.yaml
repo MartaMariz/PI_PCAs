@@ -69,6 +69,15 @@ flutter:
     - lib/assets/images/fox_icon.png
     - lib/assets/images/frog_icon.png
     - lib/assets/images/null_icon.png
+    - lib/assets/images/alone_share.png
+    - lib/assets/images/friends_share.png
+    - lib/assets/images/so_share.png
+    - lib/assets/images/family_share.png
+    - lib/assets/images/anxious_emotion.png
+    - lib/assets/images/happy_emotion.png
+    - lib/assets/images/mad_emotion.png
+    - lib/assets/images/sad_emotion.png
+    - lib/assets/images/satisfied_emotion.png
 
 
   #   - images/a_dot_ham.jpeg

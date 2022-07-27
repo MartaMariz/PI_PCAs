@@ -313,15 +313,11 @@ class _RegisterPage extends State<RegisterPage>{
                           ],
                         ),
                         const SizedBox( height: 50,),
-
                       ],
-
                     )
                 )
-
             ),
         )
-
     );
   }
 

@@ -91,13 +91,9 @@ class _LogOutPage extends State<LogOutPage>{
                   ),
                 ),
               ],
-
             )
           ),
-
-
         )
-
     );
   }
 

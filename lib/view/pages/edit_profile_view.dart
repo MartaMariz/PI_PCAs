@@ -47,7 +47,7 @@ class _EditPage extends State<EditPage>{
   _EditPage(this.user);
 
   Future updateData() async {
-    UserData? userData = await _database.retrieveCurrentData(user.id);
+    UserData? userData = await _database.retrieveCurrentUserData(user.id);
     if (userData == null){
       print("cockou");
       return;
