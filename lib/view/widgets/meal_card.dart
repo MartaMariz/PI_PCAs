@@ -35,7 +35,8 @@ class _MealCardState extends State<MealCard>{
     "lib/assets/images/alone_share.png",
     "lib/assets/images/family_share.png",
     "lib/assets/images/friends_share.png",
-    "lib/assets/images/so_share.png"
+    "lib/assets/images/so_share.png",
+    "lib/assets/images/coworkers_share.png"
   ];
 
   late bool skipped;
