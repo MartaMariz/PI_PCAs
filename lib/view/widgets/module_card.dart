@@ -13,7 +13,7 @@ class ModuleCard extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Container(
-        margin:EdgeInsets.all(15),
+        margin:const EdgeInsets.all(15),
         height: 90,
         child: Stack(
           children: [
@@ -37,18 +37,19 @@ class ModuleCard extends StatelessWidget{
                           begin:Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [
-                            Colors.black.withOpacity(.2),
+                            Colors.black.withOpacity(.1),
                             Colors.transparent
                           ]
                       )
                   ),
                 )
             ),
+
             Positioned(
               left: 15,
               top:25,
               child: Text(
-                  this.module.name,
+                  module.name,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Mulish',
@@ -59,7 +60,7 @@ class ModuleCard extends StatelessWidget{
             Positioned(
                 right: 15,
                 top:30,
-                child: getIcon(this.module)
+                child: getIcon(module)
             )
           ],
         )
@@ -68,7 +69,10 @@ class ModuleCard extends StatelessWidget{
 
 
   Widget getIcon(Module mod){
-    if (!mod.locked) return Icon(Icons.lock, color: Colors.white);
-    else return Text("");
+    if (!mod.locked) {
+      return const Icon(Icons.lock, color: Colors.white);
+    } else {
+      return const Text("");
+    }
   }
 }
