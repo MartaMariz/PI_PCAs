@@ -89,7 +89,7 @@ class _RecordState extends State<AddRecord>{
                 title: Text(meal.meal,
                 style: const TextStyle(fontSize: 18, color: textGrayColor),),
               ),
-              body: MealCard(meal: meal, day: title)))
+              body: MealCard(meal: meal, day: title+" de "+DateTime.now().year.toString())))
           .toList(),
         ),
       ),
