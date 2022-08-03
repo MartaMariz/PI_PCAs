@@ -1,6 +1,7 @@
 class SubModule {
   String name;
   String description;
+  List<Page> pages;
   List<String> content;
   bool favorite;
   bool locked;

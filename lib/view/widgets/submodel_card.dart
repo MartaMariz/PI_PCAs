@@ -32,7 +32,7 @@ class SubModuleCard extends StatelessWidget{
         }
       },
       child: Container(
-          margin:EdgeInsets.all(15),
+          margin:const EdgeInsets.all(15),
           height: 90,
           child: Stack(
             children: [
@@ -65,22 +65,31 @@ class SubModuleCard extends StatelessWidget{
               ),
               Positioned(
                 left: 15,
-                top:25,
-                child: Text(
-                    this.subModule.name,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Mulish',
-                      fontSize: 12,
-                    )
+                height: 100,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: SizedBox(
+                    width: 300,
+                    child: Text(
+                        subModule.name,
+                        overflow: TextOverflow.fade,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Mulish',
+                          fontSize: 15,
+                        )
+                    ),
+                  ),
                 ),
-              ),
+                          ),
               Positioned(
                   right: 25,
                   top:30,
-                  child: getIcon(this.subModule)
-              )
-            ],
+                  child: getIcon(subModule)
+          )
+            ]
+
+            ,
           )
       ),
     );
@@ -88,7 +97,10 @@ class SubModuleCard extends StatelessWidget{
 
 
   Widget getIcon(SubModule mod){
-    if (mod.locked) return Icon(Icons.lock, color: Colors.white);
-    else return Text("");
+    if (mod.locked) {
+      return const Icon(Icons.lock, color: Colors.white);
+    } else {
+      return const Text("");
+    }
   }
 }

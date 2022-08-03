@@ -26,7 +26,7 @@ class _LoginCodePage extends State<LoginCodePage>{
     if (mounted){
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const ResetPasswordPage(),)
+          MaterialPageRoute(builder: (context) => const MyHomePage(),)
       );
     }
   }

@@ -46,33 +46,40 @@ class _ModulePage extends State<ModulePage>{
         backgroundColor: mainColor,
       ),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children : [
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 50,),
                   Text(widget.module.description,
                 style: mainTextStyle,),
+                  SizedBox(height: 200,)
                 ]
             )
           ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [MaterialButton(
-                onPressed: showSubmodelList,
-                color: mainColor,
-                textColor: Colors.white,
-                child: const Icon(
-                  Icons.arrow_forward,
-                  size: 24,
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [MaterialButton(
+                    onPressed: showSubmodelList,
+                    color: mainColor,
+                    textColor: Colors.white,
+                    child: const Icon(
+                      Icons.arrow_forward,
+                      size: 24,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    shape: const CircleBorder(),
+                  )],
                 ),
-                padding: EdgeInsets.all(16),
-                shape: CircleBorder(),
-              )],
+              ),
             ),
-            const SizedBox( height: 50,),
           ]
         )
       ),
