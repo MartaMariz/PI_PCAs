@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
 import '../../models/meal.dart';
+import '../../models/user_data.dart';
 import '../../theme.dart';
 
 class MealCard extends StatefulWidget {
@@ -57,6 +58,14 @@ class _MealCardState extends State<MealCard>{
   }
 
   Future sendData() async{
+    String userCode = "";
+    UserData? userInfo = await _database.retrieveCurrentUserData(user.id);
+    if (userInfo == null) {
+      print("problema retrieving info da base de dados");
+    } else {
+      userCode = userInfo.code;
+    }
+
     widget.meal.day = widget.day;
     widget.meal.skipped = skipped;
     if (_timeController.text != "Escolha hora") {
@@ -68,7 +77,7 @@ class _MealCardState extends State<MealCard>{
     widget.meal.feeling = feeling;
     widget.meal.food = _foodController.text;
 
-    await _database.updateRecordData(user.id, widget.meal);
+    await _database.updateRecordData(userCode, widget.meal);
   }
 
 

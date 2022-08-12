@@ -21,20 +21,19 @@ class DatabaseService{
     });
   }
 
-  Future updateRecordData(String userId, Meal meal) async {
-    id = userId;
+  Future updateRecordData(String userCode, Meal meal) async {
     if (meal.skipped) {
-      return await recordCollection.doc(userId+"-"+meal.day+"-"+meal.meal).set({
+      return await recordCollection.doc(userCode+"-"+meal.day+"-"+meal.meal).set({
         'meal' : meal.meal,
         'day' : meal.day,
-        'user' : userId,
+        'user' : userCode,
         'skipped' : meal.skipped,
     });}
     else {
-      return await recordCollection.doc(userId+"-"+meal.day+"-"+meal.meal).set({
+      return await recordCollection.doc(userCode+"-"+meal.day+"-"+meal.meal).set({
         'meal' : meal.meal,
         'day' : meal.day,
-        'user' : userId,
+        'user' : userCode,
         'food' : meal.food,
         'time' : meal.time,
         'feeling' : meal.feeling,
@@ -61,16 +60,20 @@ class DatabaseService{
   Future<UserData?> retrieveCurrentUserData(String id) async {
     var doc = await userCollection.doc(id).get();
 
-    if (doc == null) return null;
-    else print(doc.data().toString());
+    if (doc == null) {
+      return null;
+    } else {
+      print(doc.data().toString());
+    }
 
     var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
     if (userInfo == null){
       print("problema");
       return null;
     }
-    else
+    else {
       return userInfo;
+    }
   }
 
   Future<Meal?> retrieveCurrentRecordData(String userId, String day, String meal) async {
@@ -84,7 +87,8 @@ class DatabaseService{
       print("problema");
       return null;
     }
-    else
+    else {
       return mealRetrieved;
+    }
   }
 }
