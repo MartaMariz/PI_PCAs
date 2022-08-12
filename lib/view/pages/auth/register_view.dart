@@ -6,7 +6,6 @@ import 'package:pi_pcas/services/database.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';
-import '../home_page_view.dart';
 import '../wrapper.dart';
 
 class RegisterPage extends StatefulWidget{
@@ -40,7 +39,6 @@ class _RegisterPage extends State<RegisterPage>{
     _passwordConfirmController.dispose();
 
     super.dispose();
-
   }
 
   Future createAccount() async {
@@ -75,7 +73,7 @@ class _RegisterPage extends State<RegisterPage>{
     if (mounted){
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage(),)
+          MaterialPageRoute(builder: (context) => Wrapper(),)
       );
     }
   }
@@ -315,15 +313,11 @@ class _RegisterPage extends State<RegisterPage>{
                           ],
                         ),
                         const SizedBox( height: 50,),
-
                       ],
-
                     )
                 )
-
             ),
         )
-
     );
   }
 

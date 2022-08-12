@@ -68,6 +68,7 @@ class _LogOutPage extends State<LogOutPage>{
                   ),
                 ),
                 const SizedBox( height: 10),
+
                 //cancel button
                 Container(
                   child: GestureDetector(
@@ -90,13 +91,9 @@ class _LogOutPage extends State<LogOutPage>{
                   ),
                 ),
               ],
-
             )
           ),
-
-
         )
-
     );
   }
 

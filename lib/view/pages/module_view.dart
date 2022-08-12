@@ -55,7 +55,7 @@ class _ModulePage extends State<ModulePage>{
                 children: [
                   Text(widget.module.description,
                 style: mainTextStyle,),
-                  SizedBox(height: 200,)
+                  const SizedBox(height: 200,)
                 ]
             )
           ),

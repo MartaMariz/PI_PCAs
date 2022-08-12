@@ -20,7 +20,7 @@ class SubModuleCard extends StatelessWidget{
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
                 title: Text('Ainda não desbloqueaste este submódulo'),
-                content: Text('Completa os submódulos anteriores para poderes aceder a este conteúdo, boa sorte!'),
+                content: Text('Completa os submódulos anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
               barrierDismissible: true)
           ;
@@ -40,7 +40,7 @@ class SubModuleCard extends StatelessWidget{
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        color: mainColor.withOpacity(0.5),
+                        color: mainColor.withOpacity(0.75),
                       )
                   )
               ),
@@ -56,7 +56,7 @@ class SubModuleCard extends StatelessWidget{
                             begin:Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Colors.black.withOpacity(.2),
+                              Colors.black.withOpacity(.1),
                               Colors.transparent
                             ]
                         )

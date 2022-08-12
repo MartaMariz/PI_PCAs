@@ -41,21 +41,19 @@ class _SubmodelListView extends State<SubmodelListView>{
             color: Colors.white),),
         backgroundColor: mainColor,
       ),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-            Expanded(
-                child: ListView.builder(
-                  itemCount: widget.module.submodules.length,
-                  itemBuilder: (BuildContext ctx, int index){
-                    return SubModuleCard(widget.module.submodules[index]);
-                  },
-                )
-            ),
-          ],
-        ),
+          Expanded(
+              child: ListView.builder(
+                itemCount: widget.module.submodules.length,
+                itemBuilder: (BuildContext ctx, int index){
+                  return SubModuleCard(widget.module.submodules[index]);
+                },
+              )
+          ),
+        ],
       ),
     );
   }
