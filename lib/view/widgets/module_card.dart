@@ -18,9 +18,9 @@ class ModuleCard extends StatelessWidget{
         if (module.locked){
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
-            title: Text('Ainda não desbloqueaste este módulo'),
-            content: Text('Completa os módulos anteriores para poderes aceder a este conteúdo, boa sorte!'),
-          ),
+                title: Text('Ainda não desbloqueaste este módulo'),
+                content: Text('Completa os módulos anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+              ),
           barrierDismissible: true)
           ;
         }
@@ -66,7 +66,7 @@ class ModuleCard extends StatelessWidget{
                 left: 15,
                 top:25,
                 child: Text(
-                    this.module.name,
+                    module.name,
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Mulish',
@@ -87,7 +87,10 @@ class ModuleCard extends StatelessWidget{
 
 
   Widget getIcon(Module mod){
-    if (mod.locked) return Icon(Icons.lock, color: Colors.white);
-    else return Text("");
+    if (mod.locked) {
+      return const Icon(Icons.lock, color: Colors.white);
+    } else {
+      return const Text("");
+    }
   }
 }
