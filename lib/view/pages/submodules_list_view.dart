@@ -2,26 +2,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/helpers/utils.dart';
 import 'package:pi_pcas/theme.dart';
+import 'package:pi_pcas/view/pages/module_view.dart';
 import 'package:pi_pcas/view/widgets/submodel_card.dart';
 
 import '../widgets/module_card.dart';
 
 
-class SubmodelListView extends StatefulWidget{
+class SubModuleListView extends StatefulWidget{
   final Module module;
 
-  const SubmodelListView( {Key? key, required this.module}) : super(key: key);
-
+  const SubModuleListView( {Key? key, required this.module}) : super(key: key);
 
   @override
-  _SubmodelListView createState() => _SubmodelListView();
-
+  _SubModuleListView createState() => _SubModuleListView();
 }
 
 
-class _SubmodelListView extends State<SubmodelListView>{
+class _SubModuleListView extends State<SubModuleListView>{
 
   @override
   void initState(){
@@ -39,6 +37,19 @@ class _SubmodelListView extends State<SubmodelListView>{
             fontSize: 20.0,
             fontFamily: 'Mulish',
             color: Colors.white),),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ModulePage(module: widget.module))
+                );
+              },
+            );
+          },
+        ),
         backgroundColor: mainColor,
       ),
       body: Column(
@@ -49,7 +60,7 @@ class _SubmodelListView extends State<SubmodelListView>{
               child: ListView.builder(
                 itemCount: widget.module.submodules.length,
                 itemBuilder: (BuildContext ctx, int index){
-                  return SubModuleCard(widget.module.submodules[index]);
+                  return SubModuleCard(widget.module, widget.module.submodules[index]);
                 },
               )
           ),

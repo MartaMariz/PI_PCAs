@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/submodule.dart';
-import 'package:pi_pcas/view/pages/home_page_view.dart';
+import 'package:pi_pcas/view/pages/submodule_view.dart';
 
+import '../../models/module.dart';
 import '../../models/submodule.dart';
 import '../../theme.dart';
 
 class SubModuleCard extends StatelessWidget{
 
-  SubModule subModule;
+  final Module module;
+  final SubModule subModule;
 
-  SubModuleCard(this.subModule, {Key? key}) : super(key: key);
+  const SubModuleCard(this.module, this.subModule, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -27,8 +29,7 @@ class SubModuleCard extends StatelessWidget{
         }
         else {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>const MyHomePage(),));
-
+            builder: (context) => SubModulePage(module: module, subModule: subModule)));
         }
       },
       child: Container(

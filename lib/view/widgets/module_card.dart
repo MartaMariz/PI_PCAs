@@ -7,9 +7,9 @@ import '../pages/module_view.dart';
 
 class ModuleCard extends StatelessWidget{
 
-  Module module;
+  final Module module;
 
-  ModuleCard(this.module);
+  const ModuleCard(this.module, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -27,7 +27,6 @@ class ModuleCard extends StatelessWidget{
         else {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) => ModulePage(module: module,),));
-
         }
       },
       child: Container(

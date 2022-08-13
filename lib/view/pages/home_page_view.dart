@@ -5,7 +5,6 @@ import 'package:pi_pcas/view/pages/add_record_view.dart';
 import 'package:pi_pcas/view/pages/profile_view.dart';
 import 'package:pi_pcas/view/pages/modules_home_view.dart';
 
-import '../../models/app_user.dart';
 import '../../theme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -60,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
               currentTab = 1;
             });
           },
-        ) : SizedBox(width: 0,),
+        ) : const SizedBox(width: 0,),
       floatingActionButtonLocation:  FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar:  currentTab != 1? BottomAppBar(
         shape: const CircularNotchedRectangle(),

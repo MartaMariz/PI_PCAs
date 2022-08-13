@@ -7,7 +7,6 @@ class Contacts extends StatelessWidget{
   const Contacts({Key? key}) : super(key: key);
 
 
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -15,6 +14,14 @@ class Contacts extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contactar um profissional', style: TextStyle(color: Colors.white),),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: () { Navigator.pop(context); },
+            );
+          },
+        ),
         backgroundColor: mainColor,
       ),
       body: Container(
@@ -23,7 +30,7 @@ class Contacts extends StatelessWidget{
         width: size.width,
         child: RichText(
           text: const TextSpan(
-            style: TextStyle(color: Colors.black38,  fontSize: 18, height: 1.2, fontFamily:  'Mulish'),
+            style: TextStyle(color: textGrayColor,  fontSize: 18, height: 1.2, fontFamily:  'Mulish'),
             children: [
               TextSpan(
                   text:  'Conversa com o teu médico de família sobre os teus sintomas e dificuldades. Ele irá encaminhar-te para o serviço de Psicologia mais adequado às tuas necessidades.\n'),

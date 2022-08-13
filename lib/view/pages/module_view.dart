@@ -1,9 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/view/pages/submodels_list_view.dart';
-import 'package:pi_pcas/view/widgets/submodel_card.dart';
+import 'package:pi_pcas/view/pages/submodules_list_view.dart';
+import 'package:pi_pcas/view/pages/wrapper.dart';
 
 import '../../theme.dart';
 import '../widgets/module_card.dart';
@@ -22,12 +21,11 @@ class ModulePage extends StatefulWidget{
 class _ModulePage extends State<ModulePage>{
 
 
-  Future showSubmodelList() async{
-    //usar os controllers.text e tals
+  Future showSubModuleList() async{
 
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SubmodelListView(module : widget.module),
+          MaterialPageRoute(builder: (context) => SubModuleListView(module : widget.module),
           )
       );
     }
@@ -39,10 +37,24 @@ class _ModulePage extends State<ModulePage>{
       appBar: AppBar(
         elevation:0.0,
         centerTitle: true,
-        title: Text(widget.module.name, style: const TextStyle(color: Colors.white,
+        title: Text(widget.module.name, style: const TextStyle(
+          color: Colors.white,
           fontFamily: 'Mulish',
           fontSize: 20.0,
         ),),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Wrapper())
+                );
+              },
+            );
+          },
+        ),
         backgroundColor: mainColor,
       ),
       body: SafeArea(
@@ -67,7 +79,7 @@ class _ModulePage extends State<ModulePage>{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [MaterialButton(
-                    onPressed: showSubmodelList,
+                    onPressed: showSubModuleList,
                     color: mainColor,
                     textColor: Colors.white,
                     child: const Icon(

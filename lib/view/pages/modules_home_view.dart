@@ -27,6 +27,7 @@ class _ModulesState extends State<Modules>{
 
   @override
   Widget build(BuildContext context) {
+    checkLocks();
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,
@@ -73,6 +74,14 @@ class _ModulesState extends State<Modules>{
         ),
       ),
     );
+  }
+
+  void checkLocks(){
+    for (int i=0; i<modules.length-1; i++){
+      if (modules[i].done && modules[i+1].locked){
+        modules[i+1].locked = false;
+      }
+    }
   }
 
 }
