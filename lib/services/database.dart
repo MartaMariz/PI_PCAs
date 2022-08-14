@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/meal.dart';
+import '../models/module.dart';
+import '../models/submodule.dart';
 import '../models/user_data.dart';
 
 class DatabaseService{
@@ -91,4 +93,51 @@ class DatabaseService{
       return mealRetrieved;
     }
   }
+
+  Future<List<Module>> retrieveAllCurrentModules(String userId) async{
+    List<Module> result = [];
+    var modules = await moduleCollection.get();
+    for (var moduleSnap in modules.docs){
+      var mod = await retrieveCurrentModuleData(userId, moduleSnap);
+      if (mod != null) {
+        result.add(mod);
+      }
+    }
+    return result;
+  }
+
+  Future<Module?> retrieveCurrentModuleData(String userId, QueryDocumentSnapshot module) async {
+
+    var moduleRetrieved = Module.fromJson(module.data() as Map<String, dynamic>);
+    if (moduleRetrieved == null){
+      print("problema");
+      return null;
+    }
+    else {
+      var subs = await moduleCollection.doc(module.id).collection('submodule').get();
+      for (var subModuleSnap in subs.docs){
+        var sub = await createSubModuleFromSnapshot(userId, subModuleSnap);
+        if (sub != null) {
+          moduleRetrieved.addSubModule(sub);
+        }
+      }
+      return moduleRetrieved;
+    }
+  }
+
+  Future<SubModule?> createSubModuleFromSnapshot(String userId, QueryDocumentSnapshot doc) async{
+
+    if (doc == null) return null;
+    else print(doc.data().toString());
+
+    var subModuleRetrieved = SubModule.fromJson(doc.data() as Map<String, dynamic>);
+    if (subModuleRetrieved == null){
+      print("problema");
+      return null;
+    }
+    else {
+      return subModuleRetrieved;
+    }
+  }
+
 }
