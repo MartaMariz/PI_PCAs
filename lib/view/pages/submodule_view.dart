@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/models/submodule.dart';
+import 'package:pi_pcas/services/database.dart';
 import 'package:pi_pcas/view/pages/submodules_list_view.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/app_user.dart';
 import '../../theme.dart';
 
 class SubModulePage extends StatefulWidget{
@@ -19,6 +22,9 @@ class SubModulePage extends StatefulWidget{
 
 class _SubModulePage extends State<SubModulePage>{
 
+  final DatabaseService _database = DatabaseService();
+  late var user;
+
 
   Future redirectToNextPage() async{
     //na seguinte ordem: content, exercise, pop
@@ -26,6 +32,7 @@ class _SubModulePage extends State<SubModulePage>{
     widget.subModule.done = true;
     widget.module.checkLocks();
     widget.module.checkFinal(widget.subModule.id);
+    _database.addSubModule(user.id, widget.subModule.id);
     Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
@@ -60,6 +67,8 @@ class _SubModulePage extends State<SubModulePage>{
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AppUser?>(context);
+
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,

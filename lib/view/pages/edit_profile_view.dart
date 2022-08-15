@@ -60,7 +60,7 @@ class _EditPage extends State<EditPage>{
         username = _usernameController.text : username = userData.username;
       _imageController != -1?
         image = _imageController : image = userData.image;
-      await _database.updateUserData(user.id, username, image, userData.code);
+      await _database.updateUserData(user.id, username, image, userData.code, userData.submodulesUnlocked);
       Navigator.pop(context);
     }
   }

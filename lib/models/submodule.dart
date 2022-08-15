@@ -29,4 +29,8 @@ class SubModule {
     id: json['id']
   );
 
+  void checkNewlines(){
+    description = description.replaceAll("\\n", "\n");
+    content = content?.map((e) => e.replaceAll("\\n", "\n")).toList();
+  }
 }

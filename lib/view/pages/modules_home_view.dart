@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/helpers/utils.dart';
 import 'package:pi_pcas/theme.dart';
 
+import '../../services/database.dart';
 import '../widgets/module_card.dart';
 
 
@@ -17,17 +17,30 @@ class Modules extends StatefulWidget{
 
 
 class _ModulesState extends State<Modules>{
-  List<Module> modules = Utils.getMockedModules();
+  List<Module> _modules = [];
+  final DatabaseService _database = DatabaseService();
+
+  Future getData() async {
+    var data = await _database.retrieveAllCurrentModules();
+    setState(() {
+      _modules = data;
+    });
+  }
 
   @override
-  void initState(){
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getData();
+    checkLocks();
+  }
+
+  @override
+  void initState() {
     super.initState();
-    //DatabaseReference referenceModules = FirebaseDatabase.instance.reference().child("module");
   }
 
   @override
   Widget build(BuildContext context) {
-    checkLocks();
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,
@@ -64,9 +77,9 @@ class _ModulesState extends State<Modules>{
             ),
             Expanded(
                 child: ListView.builder(
-                  itemCount: modules.length,
+                  itemCount: _modules.length,
                   itemBuilder: (BuildContext ctx, int index){
-                    return ModuleCard(modules[index]);
+                    return ModuleCard(_modules[index]);
                   },
                 )
             ),
@@ -77,9 +90,9 @@ class _ModulesState extends State<Modules>{
   }
 
   void checkLocks(){
-    for (int i=0; i<modules.length-1; i++){
-      if (modules[i].done && modules[i+1].locked){
-        modules[i+1].locked = false;
+    for (int i=0; i<_modules.length-1; i++){
+      if (_modules[i].done && _modules[i+1].locked){
+        _modules[i+1].locked = false;
       }
     }
   }

@@ -27,7 +27,7 @@ class Module {
 
   static Module fromJson(Map<String, dynamic> json) => Module.incomplete(
         json['name'],
-        json['description'],
+        json['description']
   );
 
   void checkLocks(){
@@ -44,6 +44,10 @@ class Module {
 
   void addSubModule(SubModule subModule) {
     submodules.add(subModule);
+  }
+
+  void checkNewlines(){
+    description = description.replaceAll("\\n", "\n");
   }
 
 }
