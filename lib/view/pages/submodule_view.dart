@@ -8,12 +8,14 @@ import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
 import '../../theme.dart';
+import 'content_view.dart';
 
 class SubModulePage extends StatefulWidget{
   final SubModule subModule;
   final Module module;
 
-  const SubModulePage( {Key? key, required this.subModule, required this.module}) : super(key: key);
+  const SubModulePage( {Key? key, required this.subModule, required this.module})
+      : super(key: key);
 
   @override
   _SubModulePage createState() => _SubModulePage();
@@ -29,22 +31,17 @@ class _SubModulePage extends State<SubModulePage>{
   Future redirectToNextPage() async{
     //na seguinte ordem: content, exercise, pop
 
-    widget.subModule.done = true;
-    widget.module.checkLocks();
-    widget.module.checkFinal(widget.subModule.id);
-    _database.addSubModule(user.id, widget.subModule.id);
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
-    );
-/*
+
     if (widget.subModule.hasContent){
+      widget.subModule.checkImages();
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ContentView(subModule : widget.subModule, index: 0),
+          MaterialPageRoute(builder: (context) => ContentView(
+              subModule : widget.subModule, module: widget.module, index: 0),
           )
       );
     }
+    /*
     else if (widget.subModule.hasExercise){
       Navigator.push(
           context,
@@ -52,17 +49,18 @@ class _SubModulePage extends State<SubModulePage>{
           )
       );
     }
+    */
     else {
       widget.subModule.done = true;
       widget.module.checkLocks();
       widget.module.checkFinal(widget.subModule.id);
+      _database.addSubModule(user.id, widget.subModule.id);
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
       );
     }
 
- */
   }
 
   @override

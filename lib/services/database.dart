@@ -15,7 +15,7 @@ class DatabaseService{
   final CollectionReference recordCollection = FirebaseFirestore.instance.collection('record');
 
   Future updateUserData(String userId, String username, int image, String code,
-      List<int> submodules) async {
+      List<dynamic> submodules) async {
     id = userId;
     return await userCollection
         .doc(userId)
@@ -182,6 +182,9 @@ class DatabaseService{
       return null;
     }
     else {
+      if (subModuleRetrieved.hasContent){
+        subModuleRetrieved.addContent(doc.data() as Map<String, dynamic>);
+      }
       print(subModuleRetrieved.name);
       return subModuleRetrieved;
     }
@@ -190,14 +193,16 @@ class DatabaseService{
   Future addSubModule(String userId, int subId) async {
     id = userId;
     UserData? data = await retrieveCurrentUserData(userId);
-    var subs = data!.submodulesUnlocked.add(subId);
+    if (data == null) return;
+    if (!data.submodulesUnlocked.contains(subId+1)) data.submodulesUnlocked.add(subId+1);
     return await userCollection
         .doc(userId)
         .set({
       'username' : data.username,
       'code' : data.code,
       'image' : data.image,
-      'submodules' : subs
+      'submodules' : data.submodulesUnlocked
     });
   }
+
 }

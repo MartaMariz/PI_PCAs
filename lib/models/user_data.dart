@@ -3,7 +3,7 @@ class UserData {
   final String username;
   final String code;
   final int image;
-  List<int> submodulesUnlocked = [0];
+  List<dynamic> submodulesUnlocked = [0];
 
   UserData({required this.id, required this.username, required this.code, required this.image, required this.submodulesUnlocked});
 
@@ -11,7 +11,7 @@ class UserData {
     String code = json['code'];
     String username = json['username'];
     int image = json['image'];
-    List<int> submodulesUnlocked = json['submodules'].toList();
+    List<dynamic> submodulesUnlocked = json['submodules'].toList();
 
     return UserData(id: id, username: username, code: code, image: image, submodulesUnlocked: submodulesUnlocked);
   }

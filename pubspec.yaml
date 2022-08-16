@@ -80,6 +80,10 @@ flutter:
     - lib/assets/images/sad_emotion.png
     - lib/assets/images/satisfied_emotion.png
 
+    - lib/assets/images/contents/Picture1.jpg
+    - lib/assets/images/contents/Picture2.jpg
+    - lib/assets/images/contents/Picture3.jpg
+
 
   #   - images/a_dot_ham.jpeg
 
