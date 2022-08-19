@@ -78,7 +78,7 @@ class DatabaseService{
 
     var userData = await retrieveCurrentUserData(userId);
 
-    var modules = await moduleCollection.get();
+    var modules = await moduleCollection.orderBy("id").get();
     for (var moduleSnap in modules.docs){
       var mod = await retrieveCurrentModuleData(moduleSnap, userData!.submodulesUnlocked);
       if (mod != null) {

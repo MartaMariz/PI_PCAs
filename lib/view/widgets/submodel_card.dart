@@ -16,6 +16,7 @@ class SubModuleCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
+
     return GestureDetector(
       onTap: () async {
         if (subModule.locked){
@@ -82,7 +83,7 @@ class SubModuleCard extends StatelessWidget{
                     ),
                   ),
                 ),
-                          ),
+              ),
               Positioned(
                   right: 25,
                   top:30,
