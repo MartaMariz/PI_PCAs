@@ -44,6 +44,7 @@ class _RecordState extends State<AddRecord>{
     String title = DateTime.now().day.toString() + " de " + months[DateTime.now().month-1];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: <Widget>[
         IconButton(
             icon: const Icon(Icons.clear_rounded, color: Colors.white,),

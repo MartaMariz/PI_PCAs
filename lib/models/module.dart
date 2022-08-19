@@ -6,28 +6,32 @@ class Module {
   bool locked;
   String description;
   bool done;
+  String finalMessage;
 
   Module({
     required this.name,
     required this.description,
     required this.submodules,
+    required this.finalMessage,
     this.locked = true,
-    this.done = false
+    this.done = false,
   });
 
 
   Module.incomplete(
     this.name,
     this.description,
+    this.finalMessage,
     {
     this.locked = true,
-    this.done = false
+    this.done = false,
     }
   );
 
   static Module fromJson(Map<String, dynamic> json) => Module.incomplete(
         json['name'],
-        json['description']
+        json['description'],
+        json['finalMessage']
   );
 
   void checkLocks(){
@@ -48,6 +52,7 @@ class Module {
 
   void checkNewlines(){
     description = description.replaceAll("\\n", "\n");
+    finalMessage = finalMessage.replaceAll("\\n", "\n");
   }
 
 }

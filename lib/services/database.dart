@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pi_pcas/models/app_user.dart';
 
 import '../models/meal.dart';
 import '../models/module.dart';
@@ -13,6 +14,7 @@ class DatabaseService{
   final CollectionReference moduleCollection = FirebaseFirestore.instance.collection('module');
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
   final CollectionReference recordCollection = FirebaseFirestore.instance.collection('record');
+  final CollectionReference exerciseCollection = FirebaseFirestore.instance.collection('exercise');
 
   Future updateUserData(String userId, String username, int image, String code,
       List<dynamic> submodules) async {
@@ -23,7 +25,7 @@ class DatabaseService{
       'username' : username,
       'code' : code,
       'image' : image,
-      'submodules' : submodules
+      'submodules' : submodules,
     });
   }
 
@@ -71,11 +73,14 @@ class DatabaseService{
     );
   }
 
-  Future<List<Module>> retrieveAllCurrentModules() async {
+  Future<List<Module>> retrieveAllCurrentModules(String userId) async {
     List<Module> result = [];
+
+    var userData = await retrieveCurrentUserData(userId);
+
     var modules = await moduleCollection.get();
     for (var moduleSnap in modules.docs){
-      var mod = await retrieveCurrentModuleData(moduleSnap);
+      var mod = await retrieveCurrentModuleData(moduleSnap, userData!.submodulesUnlocked);
       if (mod != null) {
         result.add(mod);
       }
@@ -91,7 +96,8 @@ class DatabaseService{
     Map<String, dynamic> data = snapshot.docs.first as Map<String, dynamic>;
     return Module.incomplete(
         data['name'],
-        data['description']
+        data['description'],
+        data['finalMessage']
     );
   }
 
@@ -99,12 +105,6 @@ class DatabaseService{
     var doc = await userCollection
         .doc(id)
         .get();
-
-    if (doc == null) {
-      return null;
-    } else {
-      print(doc.data().toString());
-    }
 
     var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
     if (userInfo == null){
@@ -138,7 +138,8 @@ class DatabaseService{
     }
   }
 
-  Future<Module?> retrieveCurrentModuleData(QueryDocumentSnapshot module) async {
+  Future<Module?> retrieveCurrentModuleData(QueryDocumentSnapshot module,
+      List<dynamic> submodulesUnlocked) async {
 
     var moduleRetrieved = Module.fromJson(module.data() as Map<String, dynamic>);
 
@@ -147,34 +148,33 @@ class DatabaseService{
       return null;
     }
     else {
-      if (moduleRetrieved.name == "O quê é?") moduleRetrieved.locked = false;
       moduleRetrieved.checkNewlines();
-      print(moduleRetrieved.description);
 
       var subs = await moduleCollection
           .doc(module.id)
           .collection('submodules')
           .orderBy('id', descending: false)
           .get();
+      var oneLocked = false;
+      var oneUnlocked = false;
       for (var subModuleSnap in subs.docs){
         var sub = await createSubModuleFromSnapshot(subModuleSnap);
         if (sub != null) {
-          if (sub.id == 0) sub.locked = false;
+          if (submodulesUnlocked.contains(sub.id)) {
+            sub.locked = false;
+            oneUnlocked = true;
+          } else { oneLocked = true; }
           sub.checkNewlines();
           moduleRetrieved.addSubModule(sub);
         }
       }
+      if(!oneLocked) moduleRetrieved.done = true;
+      if(oneUnlocked) moduleRetrieved.locked = false;
       return moduleRetrieved;
     }
   }
 
   Future<SubModule?> createSubModuleFromSnapshot(QueryDocumentSnapshot doc) async{
-
-    if (doc == null) {
-      return null;
-    } else {
-      print(doc.data().toString());
-    }
 
     var subModuleRetrieved = SubModule.fromJson(doc.data() as Map<String, dynamic>);
     if (subModuleRetrieved == null){
@@ -185,7 +185,9 @@ class DatabaseService{
       if (subModuleRetrieved.hasContent){
         subModuleRetrieved.addContent(doc.data() as Map<String, dynamic>);
       }
-      print(subModuleRetrieved.name);
+      if (subModuleRetrieved.hasExercise){
+        subModuleRetrieved.addExercise(doc.data() as Map<String, dynamic>);
+      }
       return subModuleRetrieved;
     }
   }
@@ -202,6 +204,19 @@ class DatabaseService{
       'code' : data.code,
       'image' : data.image,
       'submodules' : data.submodulesUnlocked
+    });
+  }
+
+  Future updateExerciseData(String userId, int subModId, String response,
+      String subModName) async {
+    id = userId;
+    var userData = await retrieveCurrentUserData(userId);
+    return await exerciseCollection
+        .doc(userData!.code+"-Submódulo " + subModId.toString())
+        .set({
+      'user' : userData!.code,
+      'answer' : response,
+      'subMódulo' : subModName
     });
   }
 

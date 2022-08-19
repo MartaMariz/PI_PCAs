@@ -5,8 +5,6 @@ import 'package:pi_pcas/view/pages/submodules_list_view.dart';
 import 'package:pi_pcas/view/pages/wrapper.dart';
 
 import '../../theme.dart';
-import '../widgets/module_card.dart';
-import 'home_page_view.dart';
 
 class ModulePage extends StatefulWidget{
   final Module module;
@@ -22,13 +20,12 @@ class _ModulePage extends State<ModulePage>{
 
 
   Future showSubModuleList() async{
-
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SubModuleListView(module : widget.module),
           )
       );
-    }
+  }
 
 
   @override

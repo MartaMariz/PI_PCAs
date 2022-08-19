@@ -36,6 +36,7 @@ class _ProfileState extends State<Profile>{
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,
+        automaticallyImplyLeading: false,
         centerTitle: true,
           title: const Text('Perfil', style: TextStyle(
               fontSize: 20.0,
@@ -95,7 +96,7 @@ class _ProfileState extends State<Profile>{
                   );
                   }
                   else {
-                    return Text("");
+                    return const Text("");
                   }
                 },
               )
@@ -145,7 +146,6 @@ class ProfileButton extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => redirect),
         );
-        print('tappedd');
       },
       child: Container(
           padding: const EdgeInsets.symmetric(vertical: 18),

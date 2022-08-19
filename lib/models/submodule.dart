@@ -39,12 +39,10 @@ class SubModule {
     if (content != null){
       for (int i = 0; i<content!.length; i++){
         if (content![i].contains("[")){
-          //RegExp exp = RegExp(r'^[[a-zA-Z0-9]+]$');
-          var splitted = content![i].split("[");
-          content![i] = splitted[0];
+          var separated = content![i].split("[");
+          content![i] = separated[0];
           images ??= {};
-          images![i] = splitted[1].split("]")[0];
-          print("imagename :" + images![i]!);
+          images![i] = separated[1].split("]")[0];
         }
       }
     }
@@ -56,5 +54,10 @@ class SubModule {
       content!.add(i);
     }
     content = content!.map((e) => e.replaceAll("\\n", "\n")).toList();
+  }
+
+  void addExercise(Map<String, dynamic> json) {
+    exercise = json['exercise'];
+    exercise = exercise!.replaceAll("\\n", "\n");
   }
 }

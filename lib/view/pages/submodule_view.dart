@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../models/app_user.dart';
 import '../../theme.dart';
 import 'content_view.dart';
+import 'exercise_view.dart';
 
 class SubModulePage extends StatefulWidget{
   final SubModule subModule;
@@ -41,15 +42,13 @@ class _SubModulePage extends State<SubModulePage>{
           )
       );
     }
-    /*
     else if (widget.subModule.hasExercise){
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ExerciseView(subModule : widget.subModule),
+          MaterialPageRoute(builder: (context) => ExerciseView(module: widget.module, subModule : widget.subModule),
           )
       );
     }
-    */
     else {
       widget.subModule.done = true;
       widget.module.checkLocks();

@@ -12,7 +12,7 @@ import '../widgets/module_card.dart';
 class SubModuleListView extends StatefulWidget{
   final Module module;
 
-  const SubModuleListView( {Key? key, required this.module}) : super(key: key);
+  const SubModuleListView({Key? key, required this.module}) : super(key: key);
 
   @override
   _SubModuleListView createState() => _SubModuleListView();
@@ -20,15 +20,17 @@ class SubModuleListView extends StatefulWidget{
 
 
 class _SubModuleListView extends State<SubModuleListView>{
+  late ValueNotifier<bool> trigger;
 
   @override
   void initState(){
     super.initState();
-    //DatabaseReference referenceModules = FirebaseDatabase.instance.reference().child("module");
+    trigger = ValueNotifier(widget.module.done);
   }
 
   @override
   Widget build(BuildContext context) {
+    trigger.value = widget.module.done;
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,
@@ -52,10 +54,10 @@ class _SubModuleListView extends State<SubModuleListView>{
         ),
         backgroundColor: mainColor,
       ),
-      body: Column(
+      body:
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Expanded(
               child: ListView.builder(
                 itemCount: widget.module.submodules.length,
@@ -64,6 +66,23 @@ class _SubModuleListView extends State<SubModuleListView>{
                 },
               )
           ),
+          ValueListenableBuilder(
+            valueListenable: trigger,
+            builder: (ctx, value, child) {
+              if (value == true) {
+                Future.delayed(const Duration(seconds: 1),
+                    () {
+                  showDialog(
+                      context: ctx,
+                      builder: (ctx) {
+                        return AlertDialog(
+                          title: const Text('Parabéns!'),
+                          content: Text(widget.module.finalMessage),
+                        );
+                      });
+                });
+            } return const SizedBox();
+            })
         ],
       ),
     );

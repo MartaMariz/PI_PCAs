@@ -108,7 +108,8 @@ class _RegisterPage extends State<RegisterPage>{
                         const SizedBox( height: 50,),
 
                         //code input
-                        Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],

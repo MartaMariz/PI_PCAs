@@ -63,13 +63,13 @@ class ModuleCard extends StatelessWidget{
             ),
             Positioned(
               left: 15,
-              top:25,
+              top:30,
               child: Text(
                   module.name,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Mulish',
-                    fontSize: 25,
+                    fontSize: 21,
                   )
               ),
             ),
