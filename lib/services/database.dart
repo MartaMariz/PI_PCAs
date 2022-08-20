@@ -211,10 +211,11 @@ class DatabaseService{
       String subModName) async {
     id = userId;
     var userData = await retrieveCurrentUserData(userId);
+    if (userData == null) return null;
     return await exerciseCollection
-        .doc(userData!.code+"-Submódulo " + subModId.toString())
+        .doc(userData.code+"-Submódulo " + subModId.toString())
         .set({
-      'user' : userData!.code,
+      'user' : userData.code,
       'answer' : response,
       'subMódulo' : subModName
     });

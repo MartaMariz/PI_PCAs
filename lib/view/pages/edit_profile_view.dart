@@ -27,12 +27,36 @@ class _EditPage extends State<EditPage>{
   }
 
   List<String> profilePics = [
-    'lib/assets/images/bunny_icon.png',
-    'lib/assets/images/cat_icon.png',
-    'lib/assets/images/cow_icon.png',
-    'lib/assets/images/dog_icon.png',
-    'lib/assets/images/fox_icon.png',
-    'lib/assets/images/frog_icon.png'
+    'lib/assets/images/icon1.png',
+    'lib/assets/images/icon2.png',
+    'lib/assets/images/icon3.png',
+    'lib/assets/images/icon4.png',
+    'lib/assets/images/icon5.png',
+    'lib/assets/images/icon6.png',
+    'lib/assets/images/icon7.png',
+    'lib/assets/images/icon8.png',
+    'lib/assets/images/icon9.png',
+    'lib/assets/images/icon10.png',
+    'lib/assets/images/icon11.png',
+    'lib/assets/images/icon12.png',
+    'lib/assets/images/icon13.png',
+    'lib/assets/images/icon14.png',
+    'lib/assets/images/icon15.png',
+    'lib/assets/images/icon16.png',
+    'lib/assets/images/icon17.png',
+    'lib/assets/images/icon18.png',
+    'lib/assets/images/icon19.png',
+    'lib/assets/images/icon20.png',
+    'lib/assets/images/icon21.png',
+    'lib/assets/images/icon22.png',
+    'lib/assets/images/icon23.png',
+    'lib/assets/images/icon24.png',
+    'lib/assets/images/icon25.png',
+    'lib/assets/images/icon26.png',
+    'lib/assets/images/icon27.png',
+    'lib/assets/images/icon28.png',
+    'lib/assets/images/icon29.png',
+    'lib/assets/images/icon30.png'
   ];
 
   String nullPic = 'lib/assets/images/null_icon.png';
@@ -71,7 +95,6 @@ class _EditPage extends State<EditPage>{
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width ;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
@@ -102,124 +125,16 @@ class _EditPage extends State<EditPage>{
                                   Dialog(
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                                     elevation: 16,
-                                    child: Container(
-                                      child: ListView(
-                                        shrinkWrap: true,
-                                        children: <Widget>[
-                                          const SizedBox(height: 20),
-                                          const Center(child: Text('Escolha uma imagem:')),
-                                          const SizedBox(height: 20),
-                                          Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () {setState(() => _imageController = 0); Navigator.pop(context); },
-                                                    child: DecoratedBox(
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        boxShadow: [BoxShadow(
-                                                            color: _imageController == 0 ?
-                                                            mainColor : Colors.white,
-                                                            blurRadius: 1,
-                                                            spreadRadius: 1)],
-                                                      ),
-                                                        child: Image.asset("lib/assets/images/bunny_icon.png", width: width/3),
-                                                    )
-                                                  ),
-                                                  const SizedBox(width: 3),
-                                                  GestureDetector(
-                                                    onTap: () {setState(() => _imageController = 1); Navigator.pop(context); },
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          boxShadow: [BoxShadow(
-                                                              color: _imageController == 1 ?
-                                                              mainColor : Colors.white,
-                                                              blurRadius: 1,
-                                                              spreadRadius: 1)],
-                                                        ),
-                                                      child: Image.asset("lib/assets/images/cat_icon.png", width: width/3),
-                                                  )
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 3),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                      onTap: () {setState(() => _imageController = 2); Navigator.pop(context); },
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          boxShadow: [BoxShadow(
-                                                              color: _imageController == 2 ?
-                                                              mainColor : Colors.white,
-                                                              blurRadius: 1,
-                                                              spreadRadius: 1)],
-                                                        ),
-                                                        child: Image.asset("lib/assets/images/cow_icon.png", width: width/3),
-                                                      )
-                                                  ),
-                                                  const SizedBox(width: 3),
-                                                  GestureDetector(
-                                                      onTap: () {setState(() => _imageController = 3); Navigator.pop(context); },
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          boxShadow: [BoxShadow(
-                                                              color: _imageController == 3 ?
-                                                              mainColor : Colors.white,
-                                                              blurRadius: 1,
-                                                              spreadRadius: 1)],
-                                                        ),
-                                                        child: Image.asset("lib/assets/images/dog_icon.png", width: width/3),
-                                                      )
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 3),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                      onTap: () {setState(() => _imageController = 4); Navigator.pop(context); },
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          boxShadow: [BoxShadow(
-                                                              color: _imageController == 4 ?
-                                                              mainColor : Colors.white,
-                                                              blurRadius: 1,
-                                                              spreadRadius: 1)],
-                                                        ),
-                                                        child: Image.asset("lib/assets/images/fox_icon.png", width: width/3),
-                                                      )
-                                                  ),
-                                                  const SizedBox(width: 3),
-                                                  GestureDetector(
-                                                      onTap: () {setState(() => _imageController = 5); Navigator.pop(context); },
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          boxShadow: [BoxShadow(
-                                                              color: _imageController == 5 ?
-                                                              mainColor : Colors.white,
-                                                              blurRadius: 1,
-                                                              spreadRadius: 1)],
-                                                        ),
-                                                        child: Image.asset("lib/assets/images/frog_icon.png", width: width/3),
-                                                      )
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                    child: ListView(
+                                      shrinkWrap: true,
+                                      children: <Widget>[
+                                        const SizedBox(height: 20),
+                                        const Center(child: Text('Escolha uma imagem:')),
+                                        const SizedBox(height: 20),
+                                        Column(
+                                          children: getIcons()
+                                        )
+                                      ],
                                     ),
                                   )
                           );
@@ -320,7 +235,65 @@ class _EditPage extends State<EditPage>{
     );
   }
 
-
+  List<Widget> getIcons(){
+    double width = MediaQuery.of(context).size.width ;
+    List<Widget> icons = [];
+    for (int i=0; i<10; i++){
+      icons.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+                onTap: () {setState(() => _imageController = i*3); Navigator.pop(context); },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                        color: _imageController == 0 ?
+                        mainColor : Colors.white,
+                        blurRadius: 1,
+                        spreadRadius: 1)],
+                  ),
+                  child: Image.asset("lib/assets/images/icon"+ (i*3+1).toString() +".png", width: width/5),
+                )
+            ),
+            const SizedBox(width: 3),
+            GestureDetector(
+                onTap: () {setState(() => _imageController = i*3+1); Navigator.pop(context); },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                        color: _imageController == 1 ?
+                        mainColor : Colors.white,
+                        blurRadius: 1,
+                        spreadRadius: 1)],
+                  ),
+                  child: Image.asset("lib/assets/images/icon"+ (i*3+2).toString() + ".png", width: width/5),
+                )
+            ),
+            const SizedBox(width: 3),
+            GestureDetector(
+                onTap: () {setState(() => _imageController = i*3+2); Navigator.pop(context); },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                        color: _imageController == 1 ?
+                        mainColor : Colors.white,
+                        blurRadius: 1,
+                        spreadRadius: 1)],
+                  ),
+                  child: Image.asset("lib/assets/images/icon"+ (i*3+3).toString() + ".png", width: width/5),
+                )
+            ),
+          ],
+        ),
+      );
+      icons.add(const SizedBox(height: 3));
+    }
+    return icons;
+  }
 
 
 }

@@ -20,12 +20,36 @@ class Profile extends StatefulWidget{
 class _ProfileState extends State<Profile>{
 
   List<String> profilePics = [
-    'lib/assets/images/bunny_icon.png',
-    'lib/assets/images/cat_icon.png',
-    'lib/assets/images/cow_icon.png',
-    'lib/assets/images/dog_icon.png',
-    'lib/assets/images/fox_icon.png',
-    'lib/assets/images/frog_icon.png'
+    'lib/assets/images/icon1.png',
+    'lib/assets/images/icon2.png',
+    'lib/assets/images/icon3.png',
+    'lib/assets/images/icon4.png',
+    'lib/assets/images/icon5.png',
+    'lib/assets/images/icon6.png',
+    'lib/assets/images/icon7.png',
+    'lib/assets/images/icon8.png',
+    'lib/assets/images/icon9.png',
+    'lib/assets/images/icon10.png',
+    'lib/assets/images/icon11.png',
+    'lib/assets/images/icon12.png',
+    'lib/assets/images/icon13.png',
+    'lib/assets/images/icon14.png',
+    'lib/assets/images/icon15.png',
+    'lib/assets/images/icon16.png',
+    'lib/assets/images/icon17.png',
+    'lib/assets/images/icon18.png',
+    'lib/assets/images/icon19.png',
+    'lib/assets/images/icon20.png',
+    'lib/assets/images/icon21.png',
+    'lib/assets/images/icon22.png',
+    'lib/assets/images/icon23.png',
+    'lib/assets/images/icon24.png',
+    'lib/assets/images/icon25.png',
+    'lib/assets/images/icon26.png',
+    'lib/assets/images/icon27.png',
+    'lib/assets/images/icon28.png',
+    'lib/assets/images/icon29.png',
+    'lib/assets/images/icon30.png',
   ];
 
   @override
@@ -54,7 +78,6 @@ class _ProfileState extends State<Profile>{
                 height: 50,
               ),
               Container(
-                width: 150,
                 child: StreamBuilder<UserData>(
                   stream: DatabaseService().userData(user!.id),
                   builder: (context, snapshot){
@@ -111,8 +134,8 @@ class _ProfileState extends State<Profile>{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: EditPage(user: user)),
-                    ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
-                    ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: Contacts()),
+                    ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: const Contacts()),
+                    ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: const Contacts()),
                     ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: LogOutPage()),
                   ],
 
