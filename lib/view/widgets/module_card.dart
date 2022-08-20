@@ -18,8 +18,8 @@ class ModuleCard extends StatelessWidget{
         if (module.locked){
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
-                title: Text('Ainda não desbloqueaste este módulo'),
-                content: Text('Completa os módulos anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+                title: Text('Ainda não desbloqueaste esta competência'),
+                content: Text('Completa as competência anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
           barrierDismissible: true)
           ;

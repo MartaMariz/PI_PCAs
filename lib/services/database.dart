@@ -213,11 +213,11 @@ class DatabaseService{
     var userData = await retrieveCurrentUserData(userId);
     if (userData == null) return null;
     return await exerciseCollection
-        .doc(userData.code+"-Submódulo " + subModId.toString())
+        .doc(userData.code+"-SubCompetência " + subModId.toString())
         .set({
       'user' : userData.code,
       'answer' : response,
-      'subMódulo' : subModName
+      'SubCompetência' : subModName
     });
   }
 
