@@ -17,44 +17,6 @@ class DatabaseService{
   final CollectionReference exerciseCollection = FirebaseFirestore.instance.collection('exercise');
   final CollectionReference feedbackCollection = FirebaseFirestore.instance.collection('feedback');
 
-  Future updateUserData(String userId, String username, int image, String code,
-      List<dynamic> submodules) async {
-    id = userId;
-    return await userCollection
-        .doc(userId)
-        .set({
-      'username' : username,
-      'code' : code,
-      'image' : image,
-      'submodules' : submodules,
-    });
-  }
-
-  Future updateRecordData(String userCode, Meal meal) async {
-    if (meal.skipped) {
-      return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
-          .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
-        'user' : userCode,
-        'skipped' : meal.skipped,
-    });}
-    else {
-      return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
-          .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
-        'user' : userCode,
-        'food' : meal.food,
-        'time' : meal.time,
-        'feeling' : meal.feeling,
-        'share' : meal.share,
-      });
-    }
-  }
-
   Stream<UserData> userData(String userId) {
     id = userId;
     return userCollection
@@ -205,6 +167,57 @@ class DatabaseService{
       'code' : data.code,
       'image' : data.image,
       'submodules' : data.submodulesUnlocked
+    });
+  }
+
+  Future updateUserData(String userId, String username, int image, String code,
+      List<dynamic> submodules) async {
+    id = userId;
+    return await userCollection
+        .doc(userId)
+        .set({
+      'username' : username,
+      'code' : code,
+      'image' : image,
+      'submodules' : submodules,
+    });
+  }
+
+  Future updateRecordData(String userCode, Meal meal) async {
+    if (meal.skipped) {
+      return await recordCollection
+          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userCode,
+        'skipped' : meal.skipped,
+      });}
+    else {
+      return await recordCollection
+          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userCode,
+        'food' : meal.food,
+        'time' : meal.time,
+        'feeling' : meal.feeling,
+        'share' : meal.share,
+      });
+    }
+  }
+
+  Future updateEmotionRecordData(String userCode, String day, String diary,
+      String feeling, String module) async {
+    return await recordCollection
+        .doc(userCode+"-"+day+"-"+"Diário")
+        .set({
+      'user': userCode,
+      'day': day,
+      'feeling' : feeling,
+      'diary': diary,
+      'modulePracticed': module
     });
   }
 

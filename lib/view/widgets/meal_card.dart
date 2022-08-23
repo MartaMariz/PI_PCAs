@@ -71,8 +71,8 @@ class _MealCardState extends State<MealCard>{
   final TextEditingController _timeController = TextEditingController(text: "Escolha hora");
   late int feeling;
   late int share;
-  late AppUser user;
 
+  late AppUser user;
   final DatabaseService _database = DatabaseService();
 
   @override
@@ -164,8 +164,7 @@ class _MealCardState extends State<MealCard>{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text("O que comi",
-                      style: TextStyle(color: textGrayColor, fontSize: 15)
-                      ,),
+                      style: TextStyle(color: textGrayColor, fontSize: 15),),
                     const Spacer(),
                     SizedBox(
                       width: width/3+width/7,
@@ -208,7 +207,7 @@ class _MealCardState extends State<MealCard>{
                             scrollDirection: Axis.horizontal,
                               itemCount: emotionsPath.length,
                               itemBuilder: (BuildContext ctx, int index){
-                                return IconSlider(emotionsPath[index], index, true);
+                                return iconSlider(emotionsPath[index], index, true);
                               }
                           )
                       ),
@@ -238,7 +237,7 @@ class _MealCardState extends State<MealCard>{
                               scrollDirection: Axis.horizontal,
                               itemCount: sharesPath.length,
                               itemBuilder: (BuildContext ctx, int index){
-                                return IconSlider(sharesPath[index], index, false);
+                                return iconSlider(sharesPath[index], index, false);
                               }
                           )
                       ),
@@ -274,7 +273,7 @@ class _MealCardState extends State<MealCard>{
     );
   }
 
-  Widget IconSlider(String emotion, int index, bool isFeeling) {
+  Widget iconSlider(String emotion, int index, bool isFeeling) {
     return GestureDetector(
         onTap: () {setState(() => isFeeling? feeling = index : share = index);},
         child: Padding(

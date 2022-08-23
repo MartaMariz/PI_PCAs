@@ -148,7 +148,7 @@ class _FeedbackView extends State<FeedbackView>{
                                               scrollDirection: Axis.horizontal,
                                               itemCount: emotionsPath.length,
                                               itemBuilder: (BuildContext ctx, int index){
-                                                return IconSlider(emotionsPath[index], index);
+                                                return iconSlider(emotionsPath[index], index);
                                               }
                                           )
                                       ),
@@ -217,7 +217,7 @@ class _FeedbackView extends State<FeedbackView>{
   }
 
 
-  Widget IconSlider(String emotion, int index) {
+  Widget iconSlider(String emotion, int index) {
     return GestureDetector(
         onTap: () {setState(() => _feelingController = index);},
         child: Padding(
