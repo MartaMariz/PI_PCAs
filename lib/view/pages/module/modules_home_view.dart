@@ -4,10 +4,10 @@ import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/theme.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import '../widgets/module_card.dart';
-import '../../theme.dart';
+import '../../../models/app_user.dart';
+import '../../../services/database.dart';
+import '../../widgets/module_card.dart';
+import '../../../theme.dart';
 
 
 class Modules extends StatefulWidget{

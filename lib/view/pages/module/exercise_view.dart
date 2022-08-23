@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/models/submodule.dart';
 import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/view/pages/submodules_list_view.dart';
+import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/app_user.dart';
-import '../../theme.dart';
+import '../../../models/app_user.dart';
+import '../../../theme.dart';
 
 class ExerciseView extends StatefulWidget{
   final SubModule subModule;

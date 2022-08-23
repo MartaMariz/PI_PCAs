@@ -217,7 +217,7 @@ class DatabaseService{
         .set({
       'user' : userData.code,
       'answer' : response,
-      'SubCompetência' : subModName
+      'subCompetência' : subModName
     });
   }
 

@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/theme.dart';
-import 'package:pi_pcas/view/pages/module_view.dart';
+import 'package:pi_pcas/view/pages/module/module_view.dart';
 import 'package:pi_pcas/view/widgets/submodel_card.dart';
-
-import '../widgets/module_card.dart';
 
 
 class SubModuleListView extends StatefulWidget{
@@ -46,7 +44,7 @@ class _SubModuleListView extends State<SubModuleListView>{
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ModulePage(module: widget.module))
+                  MaterialPageRoute(builder: (context) => ModuleView(module: widget.module))
                 );
               },
             );

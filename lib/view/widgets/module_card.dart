@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/module.dart';
 import '../../theme.dart';
-import '../pages/module_view.dart';
+import '../pages/module/module_view.dart';
 
 class ModuleCard extends StatelessWidget{
 
@@ -19,14 +19,14 @@ class ModuleCard extends StatelessWidget{
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
                 title: Text('Ainda não desbloqueaste esta competência'),
-                content: Text('Completa as competência anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+                content: Text('Completa as competências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
           barrierDismissible: true)
           ;
         }
         else {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ModulePage(module: module,),));
+            builder: (context) => ModuleView(module: module,),));
         }
       },
       child: Container(

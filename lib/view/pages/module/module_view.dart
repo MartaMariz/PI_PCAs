@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/view/pages/submodules_list_view.dart';
+import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
 import 'package:pi_pcas/view/pages/wrapper.dart';
 
-import '../../theme.dart';
+import '../../../theme.dart';
 
-class ModulePage extends StatefulWidget{
+class ModuleView extends StatefulWidget{
   final Module module;
 
-  const ModulePage( {Key? key, required this.module}) : super(key: key);
+  const ModuleView( {Key? key, required this.module}) : super(key: key);
 
   @override
-  _ModulePage createState() => _ModulePage();
+  _ModuleView createState() => _ModuleView();
 
 }
 
-class _ModulePage extends State<ModulePage>{
+class _ModuleView extends State<ModuleView>{
 
 
   Future showSubModuleList() async{

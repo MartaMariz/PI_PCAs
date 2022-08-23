@@ -11,6 +11,8 @@ import '../../theme.dart';
 import 'edit_profile_view.dart';
 
 class Profile extends StatefulWidget{
+  const Profile({Key? key}) : super(key: key);
+
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -134,7 +136,7 @@ class _ProfileState extends State<Profile>{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: EditPage(user: user)),
-                    ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: const Contacts()),
+                    const ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
                     ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: const Contacts()),
                     ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: LogOutPage()),
                   ],
@@ -157,7 +159,7 @@ class ProfileButton extends StatelessWidget {
   final String text;
   final Widget redirect;
 
-  ProfileButton({
+  const ProfileButton({
     Key? key, required this.iconData, required this.text, required this.redirect
   }) : super(key: key);
 

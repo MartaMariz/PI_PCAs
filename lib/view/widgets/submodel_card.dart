@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/submodule.dart';
-import 'package:pi_pcas/view/pages/submodule_view.dart';
+import 'package:pi_pcas/view/pages/module/submodule_view.dart';
 
 import '../../models/module.dart';
 import '../../models/submodule.dart';
@@ -30,7 +30,7 @@ class SubModuleCard extends StatelessWidget{
         }
         else {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => SubModulePage(module: module, subModule: subModule)));
+            builder: (context) => SubModuleView(module: module, subModule: subModule)));
         }
       },
       child: Container(

@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/models/submodule.dart';
 import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/view/pages/submodules_list_view.dart';
+import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/app_user.dart';
-import '../../theme.dart';
+import '../../../models/app_user.dart';
+import '../../../theme.dart';
 import 'content_view.dart';
 import 'exercise_view.dart';
 
-class SubModulePage extends StatefulWidget{
+class SubModuleView extends StatefulWidget{
   final SubModule subModule;
   final Module module;
 
-  const SubModulePage( {Key? key, required this.subModule, required this.module})
+  const SubModuleView( {Key? key, required this.subModule, required this.module})
       : super(key: key);
 
   @override
-  _SubModulePage createState() => _SubModulePage();
+  _SubModuleView createState() => _SubModuleView();
 
 }
 
-class _SubModulePage extends State<SubModulePage>{
+class _SubModuleView extends State<SubModuleView>{
 
   final DatabaseService _database = DatabaseService();
   late var user;
