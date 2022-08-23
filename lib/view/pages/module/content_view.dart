@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../models/app_user.dart';
 import '../../../theme.dart';
 import 'exercise_view.dart';
+import 'feedback_view.dart';
 
 
 class ContentView extends StatefulWidget{
@@ -31,7 +32,7 @@ class _ContentView extends State<ContentView>{
 
 
   Future redirectToNextPage() async{
-    //na seguinte ordem: content restante, exercise, pop
+    //na seguinte ordem: content restante, exercise, feedback
 
     if (widget.index != widget.subModule.content!.length-1){
       Navigator.push(
@@ -56,7 +57,7 @@ class _ContentView extends State<ContentView>{
       _database.addSubModule(user.id, widget.subModule.id);
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
+          MaterialPageRoute(builder: (context) => FeedbackView(module: widget.module, subModule: widget.subModule))
       );
     }
 
@@ -124,15 +125,10 @@ class _ContentView extends State<ContentView>{
                     onPressed: redirectToNextPage,
                     color: mainColor,
                     textColor: Colors.white,
-                    child: widget.index != widget.subModule.content!.length-1
-                        || widget.subModule.hasExercise?
-                    const Icon(
+                    child: const Icon(
                       Icons.arrow_forward,
                       size: 24,
-                    ) : const Icon(
-                      Icons.done_rounded,
-                      size: 24,
-                    ) ,
+                    ),
                     padding: const EdgeInsets.all(16),
                     shape: const CircleBorder(),
                   )],

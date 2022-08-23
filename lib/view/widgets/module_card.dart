@@ -19,7 +19,7 @@ class ModuleCard extends StatelessWidget{
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
                 title: Text('Ainda não desbloqueaste esta competência'),
-                content: Text('Completa as competências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+                content: Text('Complete as competências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
           barrierDismissible: true)
           ;

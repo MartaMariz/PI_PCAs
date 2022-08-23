@@ -24,20 +24,46 @@ class MealCard extends StatefulWidget {
 
 class _MealCardState extends State<MealCard>{
 
-  List<String> emotions = [
+  List<String> emotionsPath = [
     "lib/assets/images/happy_emotion.png",
+    "lib/assets/images/guilt_emotion.png",
+    "lib/assets/images/motivated_emotion.png",
     "lib/assets/images/anxious_emotion.png",
+    "lib/assets/images/alone_emotion.png",
     "lib/assets/images/satisfied_emotion.png",
+    "lib/assets/images/shame_emotion.png",
     "lib/assets/images/mad_emotion.png",
+    "lib/assets/images/proud_emotion.png",
     "lib/assets/images/sad_emotion.png"
   ];
 
-  List<String> shares = [
+  List<String> sharesPath = [
     "lib/assets/images/alone_share.png",
     "lib/assets/images/family_share.png",
     "lib/assets/images/friends_share.png",
     "lib/assets/images/so_share.png",
     "lib/assets/images/coworkers_share.png"
+  ];
+
+  List<String> emotions = [
+    "Feliz",
+    "Culpada",
+    "Motivada",
+    "Ansiosa",
+    "Sozinha",
+    "Satisfeita",
+    "Vergonha",
+    "Irritada",
+    "Orgulhosa",
+    "Triste"
+  ];
+
+  List<String> shares = [
+    "Sozinha",
+    "Família",
+    "Amigos",
+    "Parceiro/a",
+    "Colegas"
   ];
 
   late bool skipped;
@@ -65,7 +91,6 @@ class _MealCardState extends State<MealCard>{
     } else {
       userCode = userInfo.code;
     }
-
     widget.meal.day = widget.day;
     widget.meal.skipped = skipped;
     if (_timeController.text != "Escolha hora") {
@@ -73,8 +98,8 @@ class _MealCardState extends State<MealCard>{
     } else {
 
     }
-    widget.meal.share = share;
-    widget.meal.feeling = feeling;
+    widget.meal.share = shares[share];
+    widget.meal.feeling = emotions[feeling];
     widget.meal.food = _foodController.text;
 
     await _database.updateRecordData(userCode, widget.meal);
@@ -143,8 +168,8 @@ class _MealCardState extends State<MealCard>{
                       ,),
                     const Spacer(),
                     SizedBox(
-                      width: width/3,
-                      height: 50,
+                      width: width/3+width/7,
+                      height: 80,
                       child: TextFormField(
                         validator: (value) {
                           if ((value == null || value.isEmpty) && !skipped){
@@ -181,9 +206,9 @@ class _MealCardState extends State<MealCard>{
                       Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                              itemCount: emotions.length,
+                              itemCount: emotionsPath.length,
                               itemBuilder: (BuildContext ctx, int index){
-                                return IconSlider(emotions[index], index, true);
+                                return IconSlider(emotionsPath[index], index, true);
                               }
                           )
                       ),
@@ -211,9 +236,9 @@ class _MealCardState extends State<MealCard>{
                       Expanded(
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: shares.length,
+                              itemCount: sharesPath.length,
                               itemBuilder: (BuildContext ctx, int index){
-                                return IconSlider(shares[index], index, false);
+                                return IconSlider(sharesPath[index], index, false);
                               }
                           )
                       ),

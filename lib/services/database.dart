@@ -15,6 +15,7 @@ class DatabaseService{
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
   final CollectionReference recordCollection = FirebaseFirestore.instance.collection('record');
   final CollectionReference exerciseCollection = FirebaseFirestore.instance.collection('exercise');
+  final CollectionReference feedbackCollection = FirebaseFirestore.instance.collection('feedback');
 
   Future updateUserData(String userId, String username, int image, String code,
       List<dynamic> submodules) async {
@@ -217,6 +218,22 @@ class DatabaseService{
         .set({
       'user' : userData.code,
       'answer' : response,
+      'subCompetência' : subModName
+    });
+  }
+
+  Future updateFeedbackData(String userId, int subModId, String utility,
+      String feeling, String response, String subModName) async {
+    id = userId;
+    var userData = await retrieveCurrentUserData(userId);
+    if (userData == null) return null;
+    return await feedbackCollection
+        .doc(userData.code+"-SubCompetência " + subModId.toString())
+        .set({
+      'user' : userData.code,
+      'feeling' : feeling,
+      'utility' : utility,
+      'willBeUseful' : response,
       'subCompetência' : subModName
     });
   }

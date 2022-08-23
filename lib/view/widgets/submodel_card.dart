@@ -23,7 +23,7 @@ class SubModuleCard extends StatelessWidget{
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
                 title: Text('Ainda não desbloqueaste esta subcompetência'),
-                content: Text('Completa as subcompetências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+                content: Text('Complete as subcompetências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
               barrierDismissible: true)
           ;
@@ -78,7 +78,7 @@ class SubModuleCard extends StatelessWidget{
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Mulish',
-                          fontSize: 15,
+                          fontSize: 20,
                         )
                     ),
                   ),

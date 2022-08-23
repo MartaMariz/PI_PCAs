@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/models/submodule.dart';
 import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/app_user.dart';
 import '../../../theme.dart';
+import 'feedback_view.dart';
 
 class ExerciseView extends StatefulWidget{
   final SubModule subModule;
@@ -36,7 +36,7 @@ class _ExerciseView extends State<ExerciseView>{
     _database.addSubModule(user.id, widget.subModule.id);
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
+        MaterialPageRoute(builder: (context) => FeedbackView(module: widget.module, subModule: widget.subModule))
     );
   }
 
@@ -124,7 +124,7 @@ class _ExerciseView extends State<ExerciseView>{
                     color: mainColor,
                     textColor: Colors.white,
                     child: const Icon(
-                      Icons.done_rounded,
+                      Icons.arrow_forward,
                       size: 24,
                     ) ,
                     padding: const EdgeInsets.all(16),
