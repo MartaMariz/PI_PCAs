@@ -5,8 +5,8 @@ class Meal {
   late String time;
   late String day;
   String meal;
-  late int feeling;
-  late int share;
+  late String feeling;
+  late String share;
   late String food;
 
   Meal({

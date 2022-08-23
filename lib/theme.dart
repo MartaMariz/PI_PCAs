@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 const Color mainColor = Color.fromRGBO(0XB4, 0x8D, 0xE5, 1);
 const Color textGrayColor = Color.fromRGBO(0x69, 0x69, 0x69, 1);
 
+const TextStyle mainTextStyle = TextStyle(fontSize: 14.5,
+      color: textGrayColor,
+      fontFamily: 'Mulish');
+
 class Palette{
   static const MaterialColor color = MaterialColor(0xB48DE5,
       <int, Color> {

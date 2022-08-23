@@ -3,16 +3,33 @@ import 'package:flutter/material.dart';
 
 import '../../models/module.dart';
 import '../../theme.dart';
+import '../pages/module/module_view.dart';
 
 class ModuleCard extends StatelessWidget{
 
-  Module module;
+  final Module module;
 
-  ModuleCard(this.module);
+  const ModuleCard(this.module, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-    return Container(
+    return GestureDetector(
+      onTap: () async {
+        if (module.locked){
+          showDialog(context: context,
+              builder: (_) =>  const AlertDialog(
+                title: Text('Ainda não desbloqueaste esta competência'),
+                content: Text('Complete as competências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+              ),
+          barrierDismissible: true)
+          ;
+        }
+        else {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => ModuleView(module: module,),));
+        }
+      },
+      child: Container(
         margin:const EdgeInsets.all(15),
         height: 90,
         child: Stack(
@@ -44,17 +61,23 @@ class ModuleCard extends StatelessWidget{
                   ),
                 )
             ),
-
             Positioned(
               left: 15,
-              top:25,
-              child: Text(
-                  module.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Mulish',
-                    fontSize: 25,
-                  )
+              height: 100,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: SizedBox(
+                  width: 300,
+                  child: Text(
+                      module.name,
+                      overflow: TextOverflow.fade,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Mulish',
+                        fontSize: 20,
+                      )
+                  ),
+                ),
               ),
             ),
             Positioned(
@@ -64,12 +87,13 @@ class ModuleCard extends StatelessWidget{
             )
           ],
         )
+      )
     );
   }
 
 
   Widget getIcon(Module mod){
-    if (!mod.locked) {
+    if (mod.locked) {
       return const Icon(Icons.lock, color: Colors.white);
     } else {
       return const Text("");

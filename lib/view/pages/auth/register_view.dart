@@ -43,7 +43,6 @@ class _RegisterPage extends State<RegisterPage>{
 
   Future createAccount() async {
 
-    //usar os controllers.text e tals
     if (_key.currentState!.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
@@ -56,15 +55,11 @@ class _RegisterPage extends State<RegisterPage>{
         );
         return;
       } else {
-        print("go off sis");
-        dynamic result2 = await _database.updateUserData(result.id, _usernameController.text, Random().nextInt(6), _codeController.text);
+        dynamic result2 = await _database.updateUserData(result.id, _usernameController.text, Random().nextInt(6), _codeController.text, [0]);
 
         if (result2 == null){
           print("base de dados cockou");
           return;
-        } else{
-          print("go off again");
-          print(result2);
         }
         print(result);
       }
@@ -113,7 +108,8 @@ class _RegisterPage extends State<RegisterPage>{
                         const SizedBox( height: 50,),
 
                         //code input
-                        Padding( padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],

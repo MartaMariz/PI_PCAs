@@ -44,6 +44,7 @@ class _RecordState extends State<AddRecord>{
     String title = DateTime.now().day.toString() + " de " + months[DateTime.now().month-1];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: <Widget>[
         IconButton(
             icon: const Icon(Icons.clear_rounded, color: Colors.white,),
@@ -61,20 +62,6 @@ class _RecordState extends State<AddRecord>{
         )),
         backgroundColor: mainColor,
       ),
-        /*
-        floatingActionButton:
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: FloatingActionButton(
-                child: const Icon(Icons.done_rounded, color: Colors.white,),
-                backgroundColor: mainColor,
-                onPressed: () {
-
-                },
-              ),
-            ),
-      floatingActionButtonLocation:  FloatingActionButtonLocation.centerDocked,
-         */
       body: SingleChildScrollView(
         child: ExpansionPanelList.radio(
           expandedHeaderPadding: EdgeInsets.all(0),

@@ -6,21 +6,6 @@ class Utils{
 
   late AppUser user;
 
-  static List<Module> getMockedModules(){
-    return [
-      Module(
-          name: "Oque é?",
-          submodules: []
-      ),
-      Module(
-          name: "Mindfulness",
-          submodules: []
-      ),
-    ];
-  }
-
-
-
   Stream<List<Module>> readModules() {
    return FirebaseFirestore.instance
       .collection('module')
