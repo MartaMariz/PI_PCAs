@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pi_pcas/models/module.dart';
 import 'package:pi_pcas/models/submodule.dart';
 import 'package:pi_pcas/services/database.dart';
+import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/app_user.dart';
@@ -34,6 +35,11 @@ class _ExerciseView extends State<ExerciseView>{
     widget.module.checkLocks();
     widget.module.checkFinal(widget.subModule.id);
     _database.addSubModule(user.id, widget.subModule.id);
+    widget.module.name == "O quê é?"?
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
+    ) :
     Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => FeedbackView(module: widget.module, subModule: widget.subModule))

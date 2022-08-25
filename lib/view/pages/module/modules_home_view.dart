@@ -31,6 +31,7 @@ class _ModulesState extends State<Modules>{
       dataRead = true;
     });
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -47,7 +48,6 @@ class _ModulesState extends State<Modules>{
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation:0.0,

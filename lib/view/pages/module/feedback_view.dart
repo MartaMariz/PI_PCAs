@@ -117,7 +117,7 @@ class _FeedbackView extends State<FeedbackView>{
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Por favor responde às seguintes perguntas para sabermos o que pensas sobre esta subcompetência",
+                                const Text("Por favor responde às seguintes perguntas para sabermos o que pensas sobre esta competência",
                                   style: mainTextStyle,),
                                 const SizedBox(height: 50,),
                                 const Text("Esta atividade foi útil?",

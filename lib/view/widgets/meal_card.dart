@@ -103,6 +103,10 @@ class _MealCardState extends State<MealCard>{
     widget.meal.food = _foodController.text;
 
     await _database.updateRecordData(userCode, widget.meal);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Refeição enviada com sucesso')),
+    );
   }
 
 

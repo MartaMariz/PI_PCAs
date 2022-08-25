@@ -138,7 +138,6 @@ class DatabaseService{
   }
 
   Future<SubModule?> createSubModuleFromSnapshot(QueryDocumentSnapshot doc) async{
-
     var subModuleRetrieved = SubModule.fromJson(doc.data() as Map<String, dynamic>);
     if (subModuleRetrieved == null){
       print("problema");
@@ -208,16 +207,15 @@ class DatabaseService{
     }
   }
 
-  Future updateEmotionRecordData(String userCode, String day, String diary,
-      String feeling, String module) async {
+  Future updateEmotionRecordData(String userCode, String day,
+      String feeling, String submodule) async {
     return await recordCollection
         .doc(userCode+"-"+day+"-"+"Diário")
         .set({
       'user': userCode,
       'day': day,
       'feeling' : feeling,
-      'diary': diary,
-      'modulePracticed': module
+      'subCompetência': submodule
     });
   }
 
@@ -249,6 +247,20 @@ class DatabaseService{
       'willBeUseful' : response,
       'subCompetência' : subModName
     });
+  }
+
+  Future<List<String>> getSubmodules(String module) async {
+    List<String> subsNames = [];
+    await moduleCollection.where("name", isEqualTo: module).snapshots().first.then(
+        (value) async {
+          var subs = await value.docs[0].reference.collection("submodules").orderBy('id', descending: false).get();
+          for (var i in subs.docs){
+            subsNames.add(i.data()['name']);
+            print(i.data()['name']);
+          }
+        }
+    );
+    return subsNames;
   }
 
 }

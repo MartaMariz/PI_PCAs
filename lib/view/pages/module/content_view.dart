@@ -55,6 +55,11 @@ class _ContentView extends State<ContentView>{
       widget.module.checkLocks();
       widget.module.checkFinal(widget.subModule.id);
       _database.addSubModule(user.id, widget.subModule.id);
+      widget.module.name == "O quê é?"?
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))
+      ) :
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => FeedbackView(module: widget.module, subModule: widget.subModule))

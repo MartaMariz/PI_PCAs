@@ -75,18 +75,19 @@ class _RecordState extends State<AddRecord>{
   ];
 
   List<String> modules = [
-    "Mindfulness",
-    "Regulação Emocional",
-    "Tolerância a Sofrimento"
+    "Competências de Mindfulness",
+    "Competências de Regulação Emocional",
+    "Competências de Tolerância ao Sofrimento"
   ];
 
-  final _diaryController = TextEditingController();
   int _feelingController = -1;
   int _moduleController = -1;
+  int _subModuleController = -1;
   late String title;
   late double width;
-
+  List<String> submodules = [];
   late AppUser user;
+  bool dataRead = false;
   final _database = DatabaseService();
 
 
@@ -98,14 +99,39 @@ class _RecordState extends State<AddRecord>{
     } else {
       userCode = userInfo.code;
     }
+    if (_feelingController == -1 || _moduleController == -1 ||
+        _subModuleController == -1){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha todos os campos para enviar')),
+      );
+      return;
+    }
 
     await _database.updateEmotionRecordData(userCode,
-        title+" de "+DateTime.now().year.toString(), _diaryController.text,
-      emotions[_feelingController], modules[_moduleController]);
+        title+" de "+DateTime.now().year.toString(),
+      emotions[_feelingController], submodules[_subModuleController]);
     Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Wrapper())
     );
+  }
+
+
+  void updateSubs() async{
+    if (_moduleController != -1) {
+      var subs = await _database.getSubmodules(modules[_moduleController]);
+      setState(() {
+        submodules = subs;
+        dataRead = true;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("called");
+    super.didChangeDependencies();
+    updateSubs();
   }
 
   @override
@@ -178,20 +204,6 @@ class _RecordState extends State<AddRecord>{
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Diário",
-                            style: TextStyle(color: textGrayColor, fontSize: 15),),
-                          const SizedBox(height: 10,),
-                          SizedBox(
-                              width: width-25,
-                              height: 80,
-                              child: TextFormField(
-                                controller: _diaryController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              )
-                          ),
-                          const SizedBox(height: 20,),
                           const Text("Como me senti hoje",
                             style: TextStyle(color: textGrayColor, fontSize: 15),),
                           SizedBox(
@@ -212,7 +224,7 @@ class _RecordState extends State<AddRecord>{
                             ),
                           ),
                           const SizedBox(height: 20,),
-                          const Text("Que competências pratiquei",
+                          const Text("A competência que mais me ajudou hoje foi",
                             style: TextStyle(color: textGrayColor, fontSize: 15),),
                           SizedBox(
                             width: width-25,
@@ -231,8 +243,34 @@ class _RecordState extends State<AddRecord>{
                               ],
                             ),
                           ),
-                          const SizedBox(height: 50,),
+                          _moduleController == -1?
+                              const SizedBox() :
+                              !dataRead ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: mainColor,
+                                  strokeWidth: 5,
+                                ),
+                              ) :
+                              SizedBox(
+                                width: width-25,
+                                height: 150,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: submodules.length,
+                                            itemBuilder: (BuildContext ctx, int index){
+                                              return listSubmodules(submodules[index], index);
+                                            }
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),
+
                           //enviar button
+                          const SizedBox(height: 20,),
                           Padding(padding: const EdgeInsets.all(2.0),
                             child: GestureDetector(
                               onTap: sendData,
@@ -266,8 +304,15 @@ class _RecordState extends State<AddRecord>{
 
   Widget iconSlider(String image, int index, bool isFeeling) {
     return GestureDetector(
-        onTap: () {setState(() => isFeeling?
-        _feelingController = index : _moduleController = index);},
+        onTap: () {setState(() { if(isFeeling) {
+          _feelingController = index;
+        } else {
+          _moduleController = index;
+          print(_moduleController);
+          dataRead = false;
+        }});
+          didChangeDependencies();
+          },
         child: Padding(
           padding: const EdgeInsets.all(4),
           child:
@@ -286,7 +331,24 @@ class _RecordState extends State<AddRecord>{
             child: Image.asset(image, width: isFeeling? 100 : width/3-18,),
           ),
         )
-
     );
   }
+
+  Widget listSubmodules(String submodule, int index) {
+    return GestureDetector(
+        onTap: () {setState(() {
+          _subModuleController = index;
+        });},
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Text(submodule,
+              style: TextStyle(color: _subModuleController == index?
+                  mainColor : textGrayColor, fontSize: 15),
+          ),
+        )
+    );
+  }
+
 }
+
+
