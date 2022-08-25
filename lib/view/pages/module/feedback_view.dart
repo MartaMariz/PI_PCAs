@@ -117,7 +117,7 @@ class _FeedbackView extends State<FeedbackView>{
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Por favor responde às seguintes perguntas para sabermos o que pensas sobre esta subcompetência",
+                                const Text("Por favor responde às seguintes perguntas para sabermos o que pensas sobre esta competência",
                                   style: mainTextStyle,),
                                 const SizedBox(height: 50,),
                                 const Text("Esta atividade foi útil?",
@@ -148,7 +148,7 @@ class _FeedbackView extends State<FeedbackView>{
                                               scrollDirection: Axis.horizontal,
                                               itemCount: emotionsPath.length,
                                               itemBuilder: (BuildContext ctx, int index){
-                                                return IconSlider(emotionsPath[index], index);
+                                                return iconSlider(emotionsPath[index], index);
                                               }
                                           )
                                       ),
@@ -217,7 +217,7 @@ class _FeedbackView extends State<FeedbackView>{
   }
 
 
-  Widget IconSlider(String emotion, int index) {
+  Widget iconSlider(String emotion, int index) {
     return GestureDetector(
         onTap: () {setState(() => _feelingController = index);},
         child: Padding(

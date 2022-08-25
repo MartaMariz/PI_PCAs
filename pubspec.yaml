@@ -111,6 +111,10 @@ flutter:
     - lib/assets/images/proud_emotion.png
     - lib/assets/images/guilt_emotion.png
 
+    - lib/assets/images/mindfulness_module.png
+    - lib/assets/images/emotional_module.png
+    - lib/assets/images/suffering_module.png
+
     - lib/assets/images/contents/Picture1.jpg
     - lib/assets/images/contents/Picture2.jpg
     - lib/assets/images/contents/Picture3.jpg

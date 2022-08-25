@@ -17,44 +17,6 @@ class DatabaseService{
   final CollectionReference exerciseCollection = FirebaseFirestore.instance.collection('exercise');
   final CollectionReference feedbackCollection = FirebaseFirestore.instance.collection('feedback');
 
-  Future updateUserData(String userId, String username, int image, String code,
-      List<dynamic> submodules) async {
-    id = userId;
-    return await userCollection
-        .doc(userId)
-        .set({
-      'username' : username,
-      'code' : code,
-      'image' : image,
-      'submodules' : submodules,
-    });
-  }
-
-  Future updateRecordData(String userCode, Meal meal) async {
-    if (meal.skipped) {
-      return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
-          .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
-        'user' : userCode,
-        'skipped' : meal.skipped,
-    });}
-    else {
-      return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
-          .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
-        'user' : userCode,
-        'food' : meal.food,
-        'time' : meal.time,
-        'feeling' : meal.feeling,
-        'share' : meal.share,
-      });
-    }
-  }
-
   Stream<UserData> userData(String userId) {
     id = userId;
     return userCollection
@@ -176,7 +138,6 @@ class DatabaseService{
   }
 
   Future<SubModule?> createSubModuleFromSnapshot(QueryDocumentSnapshot doc) async{
-
     var subModuleRetrieved = SubModule.fromJson(doc.data() as Map<String, dynamic>);
     if (subModuleRetrieved == null){
       print("problema");
@@ -208,6 +169,56 @@ class DatabaseService{
     });
   }
 
+  Future updateUserData(String userId, String username, int image, String code,
+      List<dynamic> submodules) async {
+    id = userId;
+    return await userCollection
+        .doc(userId)
+        .set({
+      'username' : username,
+      'code' : code,
+      'image' : image,
+      'submodules' : submodules,
+    });
+  }
+
+  Future updateRecordData(String userCode, Meal meal) async {
+    if (meal.skipped) {
+      return await recordCollection
+          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userCode,
+        'skipped' : meal.skipped,
+      });}
+    else {
+      return await recordCollection
+          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .set({
+        'meal' : meal.meal,
+        'day' : meal.day,
+        'user' : userCode,
+        'food' : meal.food,
+        'time' : meal.time,
+        'feeling' : meal.feeling,
+        'share' : meal.share,
+      });
+    }
+  }
+
+  Future updateEmotionRecordData(String userCode, String day,
+      String feeling, String submodule) async {
+    return await recordCollection
+        .doc(userCode+"-"+day+"-"+"Diário")
+        .set({
+      'user': userCode,
+      'day': day,
+      'feeling' : feeling,
+      'subCompetência': submodule
+    });
+  }
+
   Future updateExerciseData(String userId, int subModId, String response,
       String subModName) async {
     id = userId;
@@ -236,6 +247,20 @@ class DatabaseService{
       'willBeUseful' : response,
       'subCompetência' : subModName
     });
+  }
+
+  Future<List<String>> getSubmodules(String module) async {
+    List<String> subsNames = [];
+    await moduleCollection.where("name", isEqualTo: module).snapshots().first.then(
+        (value) async {
+          var subs = await value.docs[0].reference.collection("submodules").orderBy('id', descending: false).get();
+          for (var i in subs.docs){
+            subsNames.add(i.data()['name']);
+            print(i.data()['name']);
+          }
+        }
+    );
+    return subsNames;
   }
 
 }

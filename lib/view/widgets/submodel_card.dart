@@ -22,8 +22,8 @@ class SubModuleCard extends StatelessWidget{
         if (subModule.locked){
           showDialog(context: context,
               builder: (_) =>  const AlertDialog(
-                title: Text('Ainda não desbloqueaste esta subcompetência'),
-                content: Text('Complete as subcompetências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
+                title: Text('Ainda não desbloqueaste esta competência'),
+                content: Text('Complete as competências anteriores para poderes aceder a este conteúdo. Boa sorte!'),
               ),
               barrierDismissible: true)
           ;
