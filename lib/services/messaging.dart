@@ -11,14 +11,7 @@ class MessagingService {
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       badge: true,
     );
-    getDeviceFirebaseToken();
     _onMessage();
-    _onMessageOpenedApp();
-  }
-
-  getDeviceFirebaseToken() async{
-    final token = await FirebaseMessaging.instance.getToken();
-    print('TOKEN: $token');
   }
 
   _onMessage(){
@@ -36,14 +29,6 @@ class MessagingService {
         );
       }
     });
-  }
-
-  _onMessageOpenedApp() {
-    FirebaseMessaging.onMessageOpenedApp.listen(_goToPageAfterMessage);
-  }
-
-  _goToPageAfterMessage(message){
-    //Navigator.push
   }
 
 }
