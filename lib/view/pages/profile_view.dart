@@ -137,7 +137,6 @@ class _ProfileState extends State<Profile>{
                   children: [
                     ProfileButton (text: 'Editar Perfil', iconData: Icons.edit, redirect: EditPage(user: user)),
                     const ProfileButton (text: 'Contactar um Profissional', iconData: Icons.person, redirect: Contacts()),
-                    ProfileButton (text: 'Definições', iconData: Icons.settings, redirect: const Contacts()),
                     ProfileButton (text: 'LogOut', iconData: Icons.logout, redirect: LogOutPage()),
                   ],
 

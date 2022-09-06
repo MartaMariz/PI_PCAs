@@ -1,10 +1,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_pcas/services/messaging.dart';
 import 'package:pi_pcas/view/pages/add_record_view.dart';
 import 'package:pi_pcas/view/pages/profile_view.dart';
 import 'package:pi_pcas/view/pages/module/modules_home_view.dart';
+import 'package:provider/provider.dart';
 
+import '../../services/notification.dart';
 import '../../theme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -31,6 +34,21 @@ class _MyHomePageState extends State<MyHomePage> {
     AddRecord(),
     Profile(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    initializeFirebaseMessaging();
+    checkNotifications();
+  }
+
+  initializeFirebaseMessaging() async{
+    await Provider.of<MessagingService>(context, listen: false).initialize();
+  }
+
+  checkNotifications() async{
+    await Provider.of<NotificationService>(context, listen: false).checkForNotifications();
+  }
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Modules();

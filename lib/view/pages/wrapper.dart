@@ -9,10 +9,11 @@ import 'home_page_view.dart';
 
 
 class Wrapper extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
-    print("user" + user.toString());
+
     //return either authenticate or home
     return user == null ? AuthPage() : MyHomePage();
   }
