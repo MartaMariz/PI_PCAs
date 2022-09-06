@@ -5,7 +5,6 @@ import 'package:pi_pcas/view/pages/wrapper.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
-import '../../models/meal.dart';
 import '../../models/user_data.dart';
 import '../../theme.dart';
 import '../widgets/meal_card.dart';
@@ -95,7 +94,10 @@ class _RecordState extends State<AddRecord>{
     String userCode = "";
     UserData? userInfo = await _database.retrieveCurrentUserData(user.id);
     if (userInfo == null) {
-      print("problema retrieving info da base de dados");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Houve um problema ao recolher dados. Tente novamente mais tarde.')),
+      );
+      return;
     } else {
       userCode = userInfo.code;
     }
@@ -134,7 +136,6 @@ class _RecordState extends State<AddRecord>{
 
   @override
   void didChangeDependencies() {
-    print("called");
     super.didChangeDependencies();
     updateSubs();
   }
@@ -185,7 +186,7 @@ class _RecordState extends State<AddRecord>{
               //diário das refeições
               SingleChildScrollView(
                 child: ExpansionPanelList.radio(
-                  expandedHeaderPadding: EdgeInsets.all(0),
+                  expandedHeaderPadding: const EdgeInsets.all(0),
                   elevation: 0,
                   dividerColor: mainColor,
                   children: meals
@@ -313,7 +314,6 @@ class _RecordState extends State<AddRecord>{
           _feelingController = index;
         } else {
           _moduleController = index;
-          print(_moduleController);
           dataRead = false;
         }});
           didChangeDependencies();

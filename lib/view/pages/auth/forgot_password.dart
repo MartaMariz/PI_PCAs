@@ -28,7 +28,6 @@ class _ForgotPassword extends State<ForgotPassword>{
       );
       return;
     } else {
-      print("go off sis");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Aceda ao seu email para redefinir a password.')),
       );

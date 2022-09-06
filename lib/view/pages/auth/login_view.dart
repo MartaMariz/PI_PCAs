@@ -31,9 +31,6 @@ class _LoginPage extends State<LoginPage>{
         const SnackBar(content: Text('Dados incorretos')),
       );
       return;
-    } else {
-      print("go off sis");
-      print(result);
     }
 
     if (mounted){

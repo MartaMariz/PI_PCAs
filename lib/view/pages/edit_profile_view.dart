@@ -73,7 +73,9 @@ class _EditPage extends State<EditPage>{
   Future updateData() async {
     UserData? userData = await _database.retrieveCurrentUserData(user.id);
     if (userData == null){
-      print("cockou");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Houve um problema ao recolher dados. Tente novamente mais tarde.')),
+      );
       return;
     }
 

@@ -58,10 +58,11 @@ class _RegisterPage extends State<RegisterPage>{
         dynamic result2 = await _database.updateUserData(result.id, _usernameController.text, Random().nextInt(6), _codeController.text, [0]);
 
         if (result2 == null){
-          print("base de dados cockou");
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Houve um problema ao recolher dados. Tente novamente mais tarde.')),
+          );
           return;
         }
-        print(result);
       }
     }
 

@@ -6,7 +6,6 @@ import 'package:pi_pcas/services/database.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
-import '../../models/meal.dart';
 import '../../models/user_data.dart';
 import '../../theme.dart';
 
@@ -87,7 +86,10 @@ class _MealCardState extends State<MealCard>{
     String userCode = "";
     UserData? userInfo = await _database.retrieveCurrentUserData(user.id);
     if (userInfo == null) {
-      print("problema retrieving info da base de dados");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Houve um problema ao recolher dados. Tente novamente mais tarde.')),
+      );
+      return;
     } else {
       userCode = userInfo.code;
     }

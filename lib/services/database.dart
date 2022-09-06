@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pi_pcas/models/app_user.dart';
 
-import '../models/meal.dart';
 import '../models/module.dart';
 import '../models/submodule.dart';
 import '../models/user_data.dart';
@@ -10,7 +8,7 @@ class DatabaseService{
 
   late String id;
 
-  //collection reference
+  //collection references
   final CollectionReference moduleCollection = FirebaseFirestore.instance.collection('module');
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
   final CollectionReference recordCollection = FirebaseFirestore.instance.collection('record');
@@ -70,13 +68,8 @@ class DatabaseService{
         .get();
 
     var userInfo = UserData.fromJson(doc.data() as Map<String, dynamic>, id);
-    if (userInfo == null){
-      print("problema");
-      return null;
-    }
-    else {
-      return userInfo;
-    }
+
+    return userInfo;
   }
 
   Future<Module?> retrieveCurrentModuleData(QueryDocumentSnapshot module,
@@ -84,52 +77,43 @@ class DatabaseService{
 
     var moduleRetrieved = Module.fromJson(module.data() as Map<String, dynamic>);
 
-    if (moduleRetrieved == null){
-      print("problema");
-      return null;
-    }
-    else {
-      moduleRetrieved.checkNewlines();
+    moduleRetrieved.checkNewlines();
 
-      var subs = await moduleCollection
-          .doc(module.id)
-          .collection('submodules')
-          .orderBy('id', descending: false)
-          .get();
-      var oneLocked = false;
-      var oneUnlocked = false;
-      for (var subModuleSnap in subs.docs){
-        var sub = await createSubModuleFromSnapshot(subModuleSnap);
-        if (sub != null) {
-          if (submodulesUnlocked.contains(sub.id)) {
-            sub.locked = false;
-            oneUnlocked = true;
-          } else { oneLocked = true; }
-          sub.checkNewlines();
-          moduleRetrieved.addSubModule(sub);
-        }
+    var subs = await moduleCollection
+        .doc(module.id)
+        .collection('submodules')
+        .orderBy('id', descending: false)
+        .get();
+    var oneLocked = false;
+    var oneUnlocked = false;
+
+    for (var subModuleSnap in subs.docs){
+      var sub = await createSubModuleFromSnapshot(subModuleSnap);
+      if (sub != null) {
+        if (submodulesUnlocked.contains(sub.id)) {
+          sub.locked = false;
+          oneUnlocked = true;
+        } else { oneLocked = true; }
+        sub.checkNewlines();
+        moduleRetrieved.addSubModule(sub);
       }
-      if(!oneLocked) moduleRetrieved.done = true;
-      if(oneUnlocked) moduleRetrieved.locked = false;
-      return moduleRetrieved;
     }
+
+    if(!oneLocked) moduleRetrieved.done = true;
+    if(oneUnlocked) moduleRetrieved.locked = false;
+    return moduleRetrieved;
   }
 
   Future<SubModule?> createSubModuleFromSnapshot(QueryDocumentSnapshot doc) async{
     var subModuleRetrieved = SubModule.fromJson(doc.data() as Map<String, dynamic>);
-    if (subModuleRetrieved == null){
-      print("problema");
-      return null;
+
+    if (subModuleRetrieved.hasContent){
+      subModuleRetrieved.addContent(doc.data() as Map<String, dynamic>);
     }
-    else {
-      if (subModuleRetrieved.hasContent){
-        subModuleRetrieved.addContent(doc.data() as Map<String, dynamic>);
-      }
-      if (subModuleRetrieved.hasExercise){
-        subModuleRetrieved.addExercise(doc.data() as Map<String, dynamic>);
-      }
-      return subModuleRetrieved;
+    if (subModuleRetrieved.hasExercise){
+      subModuleRetrieved.addExercise(doc.data() as Map<String, dynamic>);
     }
+    return subModuleRetrieved;
   }
 
   Future addSubModule(String userId, int subId) async {
@@ -235,7 +219,6 @@ class DatabaseService{
           var subs = await value.docs[0].reference.collection("submodules").orderBy('id', descending: false).get();
           for (var i in subs.docs){
             subsNames.add(i.data()['name']);
-            print(i.data()['name']);
           }
         }
     );
