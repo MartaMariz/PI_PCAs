@@ -79,28 +79,6 @@ class DatabaseService{
     }
   }
 
-  Future<Meal?> retrieveCurrentRecordData(String userId, String day,
-      String meal) async {
-    var doc = await userCollection
-        .doc(userId+"-"+day+"-"+meal)
-        .get();
-
-    if (doc == null) {
-      return null;
-    } else {
-      print(doc.data().toString());
-    }
-
-    var mealRetrieved = Meal.fromJson(doc.data() as Map<String, dynamic>);
-    if (mealRetrieved == null){
-      print("problema");
-      return null;
-    }
-    else {
-      return mealRetrieved;
-    }
-  }
-
   Future<Module?> retrieveCurrentModuleData(QueryDocumentSnapshot module,
       List<dynamic> submodulesUnlocked) async {
 
@@ -182,27 +160,28 @@ class DatabaseService{
     });
   }
 
-  Future updateRecordData(String userCode, Meal meal) async {
-    if (meal.skipped) {
+  Future updateRecordData(String userCode, bool skipped, String time,
+  String day, String meal, String feeling, String share, String food) async {
+    if (skipped) {
       return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .doc(userCode+"-"+day+"-"+meal)
           .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
+        'meal' : meal,
+        'day' : day,
         'user' : userCode,
-        'skipped' : meal.skipped,
+        'skipped' : skipped,
       });}
     else {
       return await recordCollection
-          .doc(userCode+"-"+meal.day+"-"+meal.meal)
+          .doc(userCode+"-"+day+"-"+meal)
           .set({
-        'meal' : meal.meal,
-        'day' : meal.day,
+        'meal' : meal,
+        'day' : day,
         'user' : userCode,
-        'food' : meal.food,
-        'time' : meal.time,
-        'feeling' : meal.feeling,
-        'share' : meal.share,
+        'food' : food,
+        'time' : time,
+        'feeling' : feeling,
+        'share' : share,
       });
     }
   }

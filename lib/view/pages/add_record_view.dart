@@ -33,13 +33,13 @@ class _RecordState extends State<AddRecord>{
     "Dezembro"
   ];
 
-  static List<Meal> meals = [
-    Meal.incomplete("Pequeno Almoço"),
-    Meal.incomplete("Lanche da Manhã"),
-    Meal.incomplete("Almoço"),
-    Meal.incomplete("Lanche"),
-    Meal.incomplete("Jantar"),
-    Meal.incomplete("Ceia")
+  static List<String> meals = [
+    "Pequeno Almoço",
+    "Lanche da Manhã",
+    "Almoço",
+    "Lanche",
+    "Jantar",
+    "Ceia"
   ];
 
   List<String> emotionsPath = [
@@ -99,6 +99,7 @@ class _RecordState extends State<AddRecord>{
     } else {
       userCode = userInfo.code;
     }
+
     if (_feelingController == -1 || _moduleController == -1 ||
         _subModuleController == -1){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -110,10 +111,14 @@ class _RecordState extends State<AddRecord>{
     await _database.updateEmotionRecordData(userCode,
         title+" de "+DateTime.now().year.toString(),
       emotions[_feelingController], submodules[_subModuleController]);
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Wrapper())
-    );
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Obrigada!'),
+            content: Text("O teu diário foi enviado com sucesso."),
+          );
+        });
   }
 
 
@@ -186,10 +191,10 @@ class _RecordState extends State<AddRecord>{
                   children: meals
                       .map((meal) => ExpansionPanelRadio(
                       canTapOnHeader: true,
-                      value: meal.meal,
+                      value: meal,
                       headerBuilder: (context, isExpanded) =>
                           ListTile(
-                            title: Text(meal.meal,
+                            title: Text(meal,
                               style: const TextStyle(fontSize: 18, color: textGrayColor),),
                           ),
                       body: MealCard(meal: meal, day: title+" de "+DateTime.now().year.toString())))

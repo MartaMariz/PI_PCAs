@@ -22,8 +22,8 @@ class FeedbackView extends StatefulWidget{
 
 class _FeedbackView extends State<FeedbackView>{
 
-  double _utilityController = 0;
-  int _feelingController = -1;
+  double _utilityController = 2;
+  int _feelingController = 0;
   final _responseController = TextEditingController();
 
   final List<String> labels = [
@@ -48,6 +48,7 @@ class _FeedbackView extends State<FeedbackView>{
   ];
 
   List<String> emotions = [
+    "Não preencheu",
     "Feliz",
     "Culpada",
     "Motivada",
@@ -65,10 +66,19 @@ class _FeedbackView extends State<FeedbackView>{
 
 
   Future redirectToNextPage(String id) async{
-    if (_feelingController != -1){
+    if (_feelingController != 0 || _responseController.text.isNotEmpty || _utilityController != 2){
         await _database.updateFeedbackData(id, widget.subModule.id,
             labels[_utilityController.toInt()], emotions[_feelingController],
             _responseController.text, widget.subModule.name);
+
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text('Obrigada!'),
+                content: Text("O teu feedback foi enviado com sucesso."),
+              );
+            });
     }
 
     widget.subModule.done = true;
@@ -219,7 +229,7 @@ class _FeedbackView extends State<FeedbackView>{
 
   Widget iconSlider(String emotion, int index) {
     return GestureDetector(
-        onTap: () {setState(() => _feelingController = index);},
+        onTap: () {setState(() => _feelingController = index+1);},
         child: Padding(
           padding: const EdgeInsets.all(4),
           child:
@@ -227,7 +237,7 @@ class _FeedbackView extends State<FeedbackView>{
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               boxShadow: [BoxShadow(
-                  color: (_feelingController == index ?
+                  color: (_feelingController == index+1 ?
                   mainColor : Colors.white),
                   blurRadius: 1.5,
                   spreadRadius: 1.5)],

@@ -68,26 +68,7 @@ class _ModulesState extends State<Modules>{
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.only(top: 15, left: 15),
-            child: OutlinedButton(
-
-              style: TextButton.styleFrom(
-                primary: mainColor,
-                onSurface: mainColor,
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
-              ),
-              child: const Text('Favoritos',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontFamily: 'Mulish',
-                  color: mainColor),
-              ),
-              onPressed: () {},
-            ),
-          ),
+          const SizedBox(height: 20,),
           Expanded(
               child: ListView.builder(
                 itemCount: _modules.length,

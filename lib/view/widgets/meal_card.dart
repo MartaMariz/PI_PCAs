@@ -13,7 +13,7 @@ import '../../theme.dart';
 class MealCard extends StatefulWidget {
   MealCard({Key? key, required this.meal, required this.day}) : super(key: key);
 
-  final Meal meal;
+  final String meal;
   final String day;
   bool selected = false;
 
@@ -79,8 +79,8 @@ class _MealCardState extends State<MealCard>{
   void initState(){
     super.initState();
     skipped = false;
-    feeling = 0;
-    share = 0;
+    feeling = -1;
+    share = -1;
   }
 
   Future sendData() async{
@@ -91,22 +91,38 @@ class _MealCardState extends State<MealCard>{
     } else {
       userCode = userInfo.code;
     }
-    widget.meal.day = widget.day;
-    widget.meal.skipped = skipped;
-    if (_timeController.text != "Escolha hora") {
-      widget.meal.time = _timeController.text;
-    } else {
 
+    if ((_timeController.text != "Escolha hora" && feeling != -1 && share != -1
+        && _foodController.text.isNotEmpty) || skipped) {
+      await _database.updateRecordData(
+          userCode,
+          skipped,
+          _timeController.text,
+          widget.day,
+          widget.meal,
+          feeling == -1? "" : emotions[feeling],
+          share == -1? "" : shares[share],
+          _foodController.text);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text('Obrigada!'),
+              content: Text("A tua refeição foi enviada com sucesso."),
+            );
+          });
     }
-    widget.meal.share = shares[share];
-    widget.meal.feeling = emotions[feeling];
-    widget.meal.food = _foodController.text;
+    else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text('Oops!'),
+              content: Text("Deve preencher os campos todos se quiser enviar os dados."),
+            );
+          });
+    }
 
-    await _database.updateRecordData(userCode, widget.meal);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Refeição enviada com sucesso')),
-    );
   }
 
 
@@ -152,6 +168,17 @@ class _MealCardState extends State<MealCard>{
                         await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.now(),
+                          builder: (context, child) {
+                          return Theme(
+                              data: ThemeData.light().copyWith(
+                              primaryColor: const Color(0xFFB48DE5),
+                              accentColor: const Color(0xFFB48DE5),
+                              colorScheme: const ColorScheme.light(primary: Color(0xFFB48DE5)),
+                              buttonTheme: const ButtonThemeData(
+                              textTheme: ButtonTextTheme.primary
+                              ),
+                              ), child: child!,
+                          );},
                         ).then((value) {
                           if(value != null) {
                             setState(() => _timeController.text = value.format(context));

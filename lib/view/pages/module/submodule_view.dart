@@ -78,8 +78,8 @@ class _SubModuleView extends State<SubModuleView>{
         centerTitle: true,
         title: Text(widget.subModule.name, style: const TextStyle(
           color: Colors.white,
+          fontSize: 20.0,
           fontFamily: 'Mulish',
-          fontSize: 15.0,
         ),),
         leading: Builder(
           builder: (BuildContext context) {

@@ -28,8 +28,19 @@ class _ExerciseView extends State<ExerciseView>{
   late AppUser user;
 
   Future redirectToNextPage(String id) async{
-    await _database.updateExerciseData(id, widget.subModule.id,
-        _responseController.text, widget.subModule.name);
+    if(_responseController.text.isNotEmpty){
+      await _database.updateExerciseData(id, widget.subModule.id,
+          _responseController.text, widget.subModule.name);
+
+      await showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text('Obrigada!'),
+              content: Text("Obrigada por concluir este exercício. Os dados foram enviados."),
+            );
+          });
+    }
 
     widget.subModule.done = true;
     widget.module.checkLocks();
