@@ -28,9 +28,6 @@ class ModuleCard extends StatelessWidget{
           ;
         }
         else {
-          Provider.of<NotificationService>(context, listen: false).showNotification(
-            CustomNotification(id: 1, title: 'Teste', body: 'Funciona', payload: ''),
-          );
           Navigator.push(context, MaterialPageRoute(
             builder: (context) => ModuleView(module: module,),));
         }
