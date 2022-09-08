@@ -65,11 +65,26 @@ class _MealCardState extends State<MealCard>{
     "Colegas"
   ];
 
+  List<String> behaviours = [
+    "Exercício físico excessivo",
+    "Vomitar",
+    "Tomar laxantes",
+    "Tomar medicação para emagrecer",
+    "Mastigar e cuspir",
+    "Esconder comida",
+    "Contar calorias"
+  ];
+
   late bool skipped;
   final TextEditingController _foodController = TextEditingController();
   final TextEditingController _timeController = TextEditingController(text: "Escolha hora");
   late int feeling;
   late int share;
+  late bool restrict;
+  late bool quantity;
+  late bool control;
+  late bool behaviour;
+  late int compensation;
 
   late AppUser user;
   final DatabaseService _database = DatabaseService();
@@ -78,8 +93,13 @@ class _MealCardState extends State<MealCard>{
   void initState(){
     super.initState();
     skipped = false;
+    restrict = false;
+    quantity = false;
+    control = false;
+    behaviour = false;
     feeling = -1;
     share = -1;
+    compensation = -1;
   }
 
   Future sendData() async{
@@ -95,7 +115,8 @@ class _MealCardState extends State<MealCard>{
     }
 
     if ((_timeController.text != "Escolha hora" && feeling != -1 && share != -1
-        && _foodController.text.isNotEmpty) || skipped) {
+        && _foodController.text.isNotEmpty &&
+        ((behaviour && compensation != -1) || !behaviour)) || skipped) {
       await _database.updateRecordData(
           userCode,
           skipped,
@@ -104,7 +125,13 @@ class _MealCardState extends State<MealCard>{
           widget.meal,
           feeling == -1? "" : emotions[feeling],
           share == -1? "" : shares[share],
-          _foodController.text);
+          _foodController.text,
+          restrict,
+          quantity,
+          control,
+          behaviour,
+          compensation == -1? "" : behaviours[compensation]
+      );
       showDialog(
           context: context,
           builder: (context) {
@@ -120,11 +147,10 @@ class _MealCardState extends State<MealCard>{
           builder: (context) {
             return const AlertDialog(
               title: Text('Oops!'),
-              content: Text("Deve preencher os campos todos se quiser enviar os dados."),
+              content: Text("Deves preencher os campos todos se quiseres enviar os dados."),
             );
           });
     }
-
   }
 
 
@@ -196,7 +222,7 @@ class _MealCardState extends State<MealCard>{
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("O que comi",
+                    const Text("O que comi e bebi",
                       style: TextStyle(color: textGrayColor, fontSize: 15),),
                     const Spacer(),
                     SizedBox(
@@ -276,7 +302,77 @@ class _MealCardState extends State<MealCard>{
                       ),
                     ],
                   ),
-                )
+                ),
+                Row(
+                  children: [
+                    const Text("Restringi a quantidade de alimentos?",
+                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      ,),
+                    const Spacer(),
+                    Checkbox(value: restrict,
+                        onChanged: (b) {
+                          setState(() => (restrict = b!));}
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text("Comi uma grande quantidade de alimentos?",
+                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      ,),
+                    const Spacer(),
+                    Checkbox(value: quantity,
+                        onChanged: (b) {
+                          setState(() => (quantity = b!));}
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text("Senti falta de controlo enquanto comia?",
+                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      ,),
+                    const Spacer(),
+                    Checkbox(value: control,
+                        onChanged: (b) {
+                          setState(() => (control = b!));}
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text("Recorri a um comportamento para compensar?",
+                      style: TextStyle(color: textGrayColor, fontSize: 14)
+                      ,),
+                    const Spacer(),
+                    Checkbox(value: behaviour,
+                        onChanged: (b) {
+                          setState(() => (behaviour = b!));}
+                    )
+                  ],
+                ),
+                if(behaviour)
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: width-25,
+                        height: 150,
+                        child: Column(
+                          children: [
+                            Expanded(
+                                child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: behaviours.length,
+                                    itemBuilder: (BuildContext ctx, int index){
+                                      return listBehaviours(behaviours[index], index);
+                                    }
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
 
@@ -328,6 +424,21 @@ class _MealCardState extends State<MealCard>{
           ),
         )
 
+    );
+  }
+
+  Widget listBehaviours(String b, int index) {
+    return GestureDetector(
+        onTap: () {setState(() {
+          compensation = index;
+        });},
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Text(b,
+            style: TextStyle(color: compensation == index?
+            mainColor : textGrayColor, fontSize: 15),
+          ),
+        )
     );
   }
 

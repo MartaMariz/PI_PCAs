@@ -145,7 +145,8 @@ class DatabaseService{
   }
 
   Future updateRecordData(String userCode, bool skipped, String time,
-  String day, String meal, String feeling, String share, String food) async {
+  String day, String meal, String feeling, String share, String food,
+  bool restrict, bool quantity, bool control, bool behaviour, String compensation) async {
     if (skipped) {
       return await recordCollection
           .doc(userCode+"-"+day+"-"+meal)
@@ -166,6 +167,10 @@ class DatabaseService{
         'time' : time,
         'feeling' : feeling,
         'share' : share,
+        'restriction' : restrict,
+        'big quantity' : quantity,
+        'lack of control' : control,
+        'compensation behaviour' : behaviour? compensation : 'false'
       });
     }
   }
