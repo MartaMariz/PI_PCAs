@@ -67,7 +67,6 @@ class _ModulesState extends State<Modules>{
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20,),
           Expanded(
               child: ListView.builder(
                 itemCount: _modules.length,

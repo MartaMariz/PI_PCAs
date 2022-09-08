@@ -1,5 +1,6 @@
+import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smile/models/module.dart';
@@ -7,7 +8,6 @@ import 'package:smile/models/submodule.dart';
 import 'package:smile/services/database.dart';
 import 'package:smile/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
-import 'dart:io';
 
 import '../../../models/app_user.dart';
 import '../../../theme.dart';
@@ -29,13 +29,13 @@ class _ExerciseView extends State<ExerciseView>{
   final _responseController = TextEditingController();
   final DatabaseService _database = DatabaseService();
   late AppUser user;
-  AudioCache audioCache = AudioCache();
   late AudioPlayer audioPlayer;
   late bool isPlaying;
   late Duration duration;
   late Duration position;
 
   Future redirectToNextPage(String id) async{
+    if (widget.subModule.hasAudio) audioPlayer.pause();
     if(_responseController.text.isNotEmpty){
       await _database.updateExerciseData(id, widget.subModule.id,
           _responseController.text, widget.subModule.name);
@@ -68,7 +68,7 @@ class _ExerciseView extends State<ExerciseView>{
   @override
   void dispose() {
     _responseController.dispose();
-    audioPlayer.dispose();
+    if (widget.subModule.hasAudio) audioPlayer.dispose();
     super.dispose();
   }
 
@@ -76,33 +76,35 @@ class _ExerciseView extends State<ExerciseView>{
   void initState() {
     super.initState();
 
-    if (widget.subModule.hasAudio) audioPlayer = AudioPlayer();
-    isPlaying = false;
-    duration = Duration.zero;
-    position = Duration.zero;
+    if (widget.subModule.hasAudio) {
+      audioPlayer = AudioPlayer();
+      isPlaying = false;
+      duration = Duration.zero;
+      position = Duration.zero;
 
-    setAudio();
+      setAudio();
 
-    //listen to states
-    audioPlayer.onPlayerStateChanged.listen((state) {
-      setState(() {
-        isPlaying = state == PlayerState.PLAYING;
+      //listen to states
+      audioPlayer.onPlayerStateChanged.listen((state) {
+        setState(() {
+          isPlaying = state == PlayerState.PLAYING;
+        });
       });
-    });
 
-    //listen to audio duration
-    audioPlayer.onDurationChanged.listen((newDuration) {
-      setState((){
-        duration = newDuration;
+      //listen to audio duration
+      audioPlayer.onDurationChanged.listen((newDuration) {
+        setState((){
+          duration = newDuration;
+        });
       });
-    });
 
-    //listen to audio position
-    audioPlayer.onAudioPositionChanged.listen((newPosition) {
-      setState((){
-        position = newPosition;
+      //listen to audio position
+      audioPlayer.onAudioPositionChanged.listen((newPosition) {
+        setState((){
+          position = newPosition;
+        });
       });
-    });
+    }
 
   }
 
@@ -140,7 +142,7 @@ class _ExerciseView extends State<ExerciseView>{
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 350,),
+                        SizedBox(height: height/2-100,),
                         Text(widget.subModule.exercise!,
                         style: mainTextStyle,),
                         const SizedBox(height: 4,),
@@ -242,24 +244,25 @@ class _ExerciseView extends State<ExerciseView>{
     );
   }
 
-  String formatTime(Duration position) {
+  String formatTime(Duration p) {
     String twoDigits(int n) => n.toString().padLeft(2,'0');
-    final hours = twoDigits(duration.inHours);
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    final hours = twoDigits(p.inHours);
+    final minutes = twoDigits(p.inMinutes.remainder(60));
+    final seconds = twoDigits(p.inSeconds.remainder(60));
 
     return [
-      if (duration.inHours > 0) hours,
+      if (p.inHours > 0) hours,
       minutes,
       seconds
     ].join(':');
   }
 
   Future setAudio() async{
-    final directory = await getApplicationDocumentsDirectory();
-    final path = directory.path + '/assets/audios/' + widget.subModule.exercise! +'.m4a';
-    File audioFile = File(path);
-    audioPlayer.setUrl(audioFile.path, isLocal: true);
+    final String path = 'lib/assets/audios/' + widget.subModule.exercise! +'.m4a';
+    ByteData bytes = await rootBundle.load(path); //load sound from assets
+    Uint8List soundbytes = bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+    await audioPlayer.playBytes(soundbytes);
+    await audioPlayer.pause();
   }
 
 }

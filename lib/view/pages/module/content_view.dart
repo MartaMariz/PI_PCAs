@@ -44,6 +44,7 @@ class _ContentView extends State<ContentView>{
     }
 
     else if (widget.subModule.hasExercise){
+      widget.subModule.checkAudioOrTextBox();
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ExerciseView(module: widget.module, subModule : widget.subModule),

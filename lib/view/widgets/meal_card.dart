@@ -153,7 +153,7 @@ class _MealCardState extends State<MealCard>{
             Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text("Quando comi",

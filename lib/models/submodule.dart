@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class SubModule {
   String name;
   String description;

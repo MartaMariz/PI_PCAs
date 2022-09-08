@@ -56,7 +56,6 @@ class _SubModuleListView extends State<SubModuleListView>{
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20,),
           Expanded(
               child: ListView.builder(
                 itemCount: widget.module.submodules.length,
