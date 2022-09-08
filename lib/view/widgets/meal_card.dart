@@ -303,7 +303,7 @@ class _MealCardState extends State<MealCard>{
                 Row(
                   children: [
                     const Text("Restringi a quantidade de alimentos?",
-                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      style: TextStyle(color: textGrayColor, fontSize: 13)
                       ,),
                     const Spacer(),
                     Checkbox(value: restrict,
@@ -315,7 +315,7 @@ class _MealCardState extends State<MealCard>{
                 Row(
                   children: [
                     const Text("Comi uma grande quantidade de alimentos?",
-                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      style: TextStyle(color: textGrayColor, fontSize: 12)
                       ,),
                     const Spacer(),
                     Checkbox(value: quantity,
@@ -327,7 +327,7 @@ class _MealCardState extends State<MealCard>{
                 Row(
                   children: [
                     const Text("Senti falta de controlo enquanto comia?",
-                      style: TextStyle(color: textGrayColor, fontSize: 15)
+                      style: TextStyle(color: textGrayColor, fontSize: 13)
                       ,),
                     const Spacer(),
                     Checkbox(value: control,
@@ -339,7 +339,7 @@ class _MealCardState extends State<MealCard>{
                 Row(
                   children: [
                     const Text("Recorri a um comportamento para compensar?",
-                      style: TextStyle(color: textGrayColor, fontSize: 14)
+                      style: TextStyle(color: textGrayColor, fontSize: 12)
                       ,),
                     const Spacer(),
                     Checkbox(value: behaviour,
