@@ -1,10 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/services/messaging.dart';
-import 'package:pi_pcas/view/pages/add_record_view.dart';
-import 'package:pi_pcas/view/pages/profile_view.dart';
-import 'package:pi_pcas/view/pages/module/modules_home_view.dart';
+import 'package:smile/services/messaging.dart';
+import 'package:smile/view/pages/add_record_view.dart';
+import 'package:smile/view/pages/profile_view.dart';
+import 'package:smile/view/pages/module/modules_home_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/notification.dart';

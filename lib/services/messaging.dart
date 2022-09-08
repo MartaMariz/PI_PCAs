@@ -1,6 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:pi_pcas/models/notification.dart';
-import 'package:pi_pcas/services/notification.dart';
+import 'package:smile/models/notification.dart';
+import 'package:smile/services/notification.dart';
 
 class MessagingService {
   final NotificationService _notificationService;

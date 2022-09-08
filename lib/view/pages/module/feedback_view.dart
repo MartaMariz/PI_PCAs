@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
+import 'package:smile/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/app_user.dart';

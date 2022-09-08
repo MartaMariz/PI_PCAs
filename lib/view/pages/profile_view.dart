@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/view/pages/auth/logout_view.dart';
-import 'package:pi_pcas/view/pages/contacts_view.dart';
+import 'package:smile/services/database.dart';
+import 'package:smile/view/pages/auth/logout_view.dart';
+import 'package:smile/view/pages/contacts_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';

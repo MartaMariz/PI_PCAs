@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/theme.dart';
+import 'package:smile/models/module.dart';
+import 'package:smile/theme.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/app_user.dart';
@@ -53,7 +52,7 @@ class _ModulesState extends State<Modules>{
         elevation:0.0,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text('Conteúdo', style: TextStyle(
+        title: const Text('SMILE', style: TextStyle(
             fontSize: 20.0,
             fontFamily: 'Mulish',
             color: Colors.white),),

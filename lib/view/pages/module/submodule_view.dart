@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/models/submodule.dart';
-import 'package:pi_pcas/services/database.dart';
-import 'package:pi_pcas/view/pages/module/submodules_list_view.dart';
+import 'package:smile/models/module.dart';
+import 'package:smile/models/submodule.dart';
+import 'package:smile/services/database.dart';
+import 'package:smile/view/pages/module/submodules_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/app_user.dart';
@@ -33,7 +33,6 @@ class _SubModuleView extends State<SubModuleView>{
   Future redirectToNextPage() async{
     //na seguinte ordem: content, exercise, feedback
 
-
     if (widget.subModule.hasContent){
       widget.subModule.checkImages();
       Navigator.push(
@@ -44,6 +43,7 @@ class _SubModuleView extends State<SubModuleView>{
       );
     }
     else if (widget.subModule.hasExercise){
+      widget.subModule.checkAudioOrTextBox();
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ExerciseView(module: widget.module, subModule : widget.subModule),
@@ -55,7 +55,7 @@ class _SubModuleView extends State<SubModuleView>{
       widget.module.checkLocks();
       widget.module.checkFinal(widget.subModule.id);
       _database.addSubModule(user.id, widget.subModule.id);
-      widget.module.name == "O quê é?"?
+      widget.module.name == "Porquê a SMILE - Stop Emotional Eating?"?
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SubModuleListView(module: widget.module))

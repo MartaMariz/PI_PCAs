@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pi_pcas/services/auth.dart';
-import 'package:pi_pcas/services/messaging.dart';
-import 'package:pi_pcas/services/notification.dart';
-import 'package:pi_pcas/view/pages/wrapper.dart';
+import 'package:smile/services/auth.dart';
+import 'package:smile/services/messaging.dart';
+import 'package:smile/services/notification.dart';
+import 'package:smile/view/pages/wrapper.dart';
 import 'package:provider/provider.dart';
 
 import 'models/app_user.dart';

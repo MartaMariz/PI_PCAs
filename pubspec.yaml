@@ -1,5 +1,5 @@
-name: pi_pcas
-description: A new Flutter project.
+name: smile
+description:
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -39,13 +39,12 @@ dependencies:
   provider: ^6.0.3
   flutter_native_splash: ^1.2.0
   flutter_launcher_icons: ^0.9.1
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  audioplayers: ^0.20.1
+  path_provider: ^2.0.11
 
 flutter_native_splash:
-  color: "#FFD914"
+  color: "#fdf4f1"
   image: "assets/app/splash.png"
   android: true
   ios: true
@@ -55,7 +54,7 @@ flutter_icons:
   ios: true
   remove_alpha_ios: true
   android: "launcher_icon"
-  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_background: "#fdf4f1"
   adaptive_icon_foreground: "assets/app/icon-android.png"
 
 dev_dependencies:
@@ -139,8 +138,7 @@ flutter:
     - lib/assets/images/contents/Picture2.jpg
     - lib/assets/images/contents/Picture3.jpg
 
-
-  #   - images/a_dot_ham.jpeg
+    - assets/audios/Observar.m4a
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
