@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smile/services/database.dart';
 
@@ -44,14 +43,11 @@ class _RegisterPage extends State<RegisterPage>{
   Future createAccount() async {
 
     if (_key.currentState!.validate()) {
-      // If the form is valid, display a snackbar. In the real world,
-      // you'd often call a server or save the information in a database.
-
       dynamic result = await _auth.registerWithEmailAndPassword(_emailController.text, _passwordController.text);
 
       if (result == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email não é válido')),
+          const SnackBar(content: Text('Autenticação não autorizada. Tente outro email e/ou senha.')),
         );
         return;
       } else {
@@ -125,17 +121,6 @@ class _RegisterPage extends State<RegisterPage>{
                                           border: InputBorder.none,
                                           hintText: 'Código'
                                       ),
-                                      validator : (value) {
-                                        //check if code exists
-                                        if (value == '123'){
-                                          return 'Código inválido';
-                                        }
-                                        else {
-                                          return null;
-                                        }
-
-                                      },
-
                                     )
 
                                 )
@@ -157,9 +142,6 @@ class _RegisterPage extends State<RegisterPage>{
                                       validator: (value) {
                                         if (value == null || value.isEmpty || value.length <8)  {
                                           return 'Username deve ter pelo menos 8 caracteres';
-                                        }
-                                        if (value == 'martamariz')  {
-                                          return 'Username já está a ser utilizado';
                                         }
                                         return null;
                                       },
@@ -186,15 +168,6 @@ class _RegisterPage extends State<RegisterPage>{
                                 child:  Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: TextFormField(
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty || value.length <8)  {
-                                          return 'Username deve ter pelo menos 8 caracteres';
-                                        }
-                                        if (value == 'martamariz')  {
-                                          return 'Username já está a ser utilizado';
-                                        }
-                                        return null;
-                                      },
                                       controller: _emailController,
                                       decoration: const InputDecoration(
                                           border: InputBorder.none,

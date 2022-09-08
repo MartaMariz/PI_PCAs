@@ -7,12 +7,14 @@ class Module {
   String description;
   bool done;
   String finalMessage;
+  String color;
 
   Module({
     required this.name,
     required this.description,
     required this.submodules,
     required this.finalMessage,
+    required this.color,
     this.locked = true,
     this.done = false,
   });
@@ -22,6 +24,7 @@ class Module {
     this.name,
     this.description,
     this.finalMessage,
+    this.color,
     {
     this.locked = true,
     this.done = false,
@@ -31,7 +34,8 @@ class Module {
   static Module fromJson(Map<String, dynamic> json) => Module.incomplete(
         json['name'],
         json['description'],
-        json['finalMessage']
+        json['finalMessage'],
+        json['color']
   );
 
   void checkLocks(){

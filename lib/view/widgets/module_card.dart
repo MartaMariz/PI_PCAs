@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/module.dart';
 import '../../theme.dart';
 import '../pages/module/module_view.dart';
@@ -38,7 +36,7 @@ class ModuleCard extends StatelessWidget{
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      color: mainColor.withOpacity(.75),
+                      color: _getColorFromHex(module.color).withOpacity(0.75),
                     )
                 )
             ),
@@ -97,6 +95,19 @@ class ModuleCard extends StatelessWidget{
       return const Icon(Icons.lock, color: Colors.white);
     } else {
       return const Text("");
+    }
+  }
+
+  Color _getColorFromHex(String hexColor) {
+    hexColor = hexColor.replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    if (hexColor.length == 8) {
+      return Color(int.parse("0x$hexColor"));
+    }
+    else {
+      return mainColor;
     }
   }
 }

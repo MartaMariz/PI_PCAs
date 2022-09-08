@@ -1,10 +1,9 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smile/models/module.dart';
 import 'package:smile/theme.dart';
 import 'package:smile/view/pages/module/module_view.dart';
-import 'package:smile/view/widgets/submodel_card.dart';
+import 'package:smile/view/widgets/submodule_card.dart';
 
 
 class SubModuleListView extends StatefulWidget{
