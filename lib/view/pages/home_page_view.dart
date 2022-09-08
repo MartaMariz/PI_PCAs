@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smile/services/messaging.dart';
 import 'package:smile/view/pages/add_record_view.dart';

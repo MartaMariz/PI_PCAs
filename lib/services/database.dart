@@ -58,7 +58,8 @@ class DatabaseService{
     return Module.incomplete(
         data['name'],
         data['description'],
-        data['finalMessage']
+        data['finalMessage'],
+        data['color']
     );
   }
 

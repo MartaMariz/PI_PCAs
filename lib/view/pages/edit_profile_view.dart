@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smile/models/app_user.dart';
 import 'package:smile/services/database.dart';

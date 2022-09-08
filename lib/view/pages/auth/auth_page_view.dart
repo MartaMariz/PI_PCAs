@@ -5,8 +5,6 @@ import 'package:smile/view/pages/auth/login_view.dart';
 import 'login_view.dart';
 import 'register_view.dart';
 
-import '../../../theme.dart';
-
 class AuthPage extends StatefulWidget{
   @override
   _AuthPage createState() => _AuthPage();
@@ -19,11 +17,9 @@ class _AuthPage extends State<AuthPage>{
   bool showLoginPage = true;
 
   void toggleScreens(){
-
     setState(() {
       showLoginPage = !showLoginPage;
     });
-
 
   }
 
