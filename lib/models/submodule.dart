@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-
 class SubModule {
   String name;
   String description;
   List<String>? content;
   String? exercise;
-  bool favorite;
   bool locked;
   bool hasExercise;
   bool hasContent;
+  bool hasTextBox;
+  bool hasAudio;
   int id;
   bool done;
   Map<int, String>? images;
@@ -17,11 +16,12 @@ class SubModule {
     required this.name,
     required this.description,
     this.locked = true,
-    this.favorite = false,
     required this.hasExercise,
     required this.hasContent,
     required this.id,
-    this.done = false});
+    this.done = false,
+    this.hasTextBox = false,
+    this.hasAudio = false});
 
   static SubModule fromJson(Map<String, dynamic> json) => SubModule(
     name: json['name'],
@@ -44,6 +44,21 @@ class SubModule {
           images ??= {};
           images![i] = separated[1].split("]")[0];
         }
+      }
+    }
+  }
+
+  void checkAudioOrTextBox(){
+    if (exercise != null){
+      if (exercise!.contains("Exercício experiencial – ")){
+        var separated = exercise!.split("Exercício experiencial – ");
+        exercise = separated[1];
+        hasAudio = true;
+      }
+      else if (exercise!.contains("Exercício de resposta – ")){
+        var separated = exercise!.split("Exercício de resposta – ");
+        exercise = separated[1];
+        hasTextBox = true;
       }
     }
   }

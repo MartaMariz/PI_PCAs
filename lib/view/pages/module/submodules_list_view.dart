@@ -1,10 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/models/module.dart';
-import 'package:pi_pcas/theme.dart';
-import 'package:pi_pcas/view/pages/module/module_view.dart';
-import 'package:pi_pcas/view/widgets/submodel_card.dart';
+import 'package:smile/models/module.dart';
+import 'package:smile/theme.dart';
+import 'package:smile/view/pages/module/module_view.dart';
+import 'package:smile/view/widgets/submodel_card.dart';
 
 
 class SubModuleListView extends StatefulWidget{
@@ -56,7 +56,6 @@ class _SubModuleListView extends State<SubModuleListView>{
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20,),
           Expanded(
               child: ListView.builder(
                 itemCount: widget.module.submodules.length,

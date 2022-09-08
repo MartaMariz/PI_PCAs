@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/models/notification.dart';
-import 'package:provider/provider.dart';
 
 import '../../models/module.dart';
-import '../../services/notification.dart';
 import '../../theme.dart';
 import '../pages/module/module_view.dart';
 

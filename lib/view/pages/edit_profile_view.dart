@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/models/app_user.dart';
-import 'package:pi_pcas/services/database.dart';
+import 'package:smile/models/app_user.dart';
+import 'package:smile/services/database.dart';
 
 import '../../models/user_data.dart';
 import '../../theme.dart';

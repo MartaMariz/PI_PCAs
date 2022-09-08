@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/services/database.dart';
+import 'package:smile/services/database.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_user.dart';
@@ -153,7 +153,7 @@ class _MealCardState extends State<MealCard>{
             Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text("Quando comi",

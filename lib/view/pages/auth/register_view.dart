@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/services/database.dart';
+import 'package:smile/services/database.dart';
 
 import '../../../services/auth.dart';
 import '../../../theme.dart';

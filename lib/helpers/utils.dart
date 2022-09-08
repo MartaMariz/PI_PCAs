@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pi_pcas/models/app_user.dart';
-import 'package:pi_pcas/models/module.dart';
+import 'package:smile/models/app_user.dart';
+import 'package:smile/models/module.dart';
 
 class Utils{
 

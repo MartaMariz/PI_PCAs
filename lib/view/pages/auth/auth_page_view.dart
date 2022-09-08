@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_pcas/view/pages/auth/login_view.dart';
+import 'package:smile/view/pages/auth/login_view.dart';
 
 import 'login_view.dart';
 import 'register_view.dart';
