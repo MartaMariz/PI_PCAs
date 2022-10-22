@@ -61,6 +61,12 @@ class _RegisterPage extends State<RegisterPage>{
         }
       }
     }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Autenticação não autorizada. Tente novamente.')),
+      );
+      return;
+    }
 
     if (mounted){
       Navigator.pushReplacement(
