@@ -105,42 +105,42 @@ class _EditPage extends State<EditPage>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
-                  const Text('Preencha apenas os dados que deseja modificar',
+                  const Text('Preenche apenas os dados que desejas modificar',
                       style: TextStyle(
                         fontSize:16,
                       )
                   ),
                   const SizedBox( height: 50,),
 
-                  CircleAvatar(
+                  GestureDetector(
+                    onTap: (){
+                      showDialog(context: context,
+                          builder: (BuildContext context) =>
+                              Dialog(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                                elevation: 16,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: <Widget>[
+                                    const SizedBox(height: 20),
+                                    const Center(child: Text('Escolha uma imagem:')),
+                                    const SizedBox(height: 20),
+                                    Column(
+                                        children: getIcons()
+                                    )
+                                  ],
+                                ),
+                              )
+                      );
+                    },
+                    child: CircleAvatar(
                     radius : 60,
                     backgroundColor: Colors.transparent,
                     backgroundImage: _imageController == -1?
                     ExactAssetImage(nullPic) : ExactAssetImage(profilePics[_imageController]),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.bottomRight,
-                      child:  GestureDetector(
-                        onTap: (){
-                          showDialog(context: context,
-                              builder: (BuildContext context) =>
-                                  Dialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                                    elevation: 16,
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      children: <Widget>[
-                                        const SizedBox(height: 20),
-                                        const Center(child: Text('Escolha uma imagem:')),
-                                        const SizedBox(height: 20),
-                                        Column(
-                                          children: getIcons()
-                                        )
-                                      ],
-                                    ),
-                                  )
-                          );
-                        },
-                        child: const CircleAvatar(
+                      child: CircleAvatar(
                         backgroundColor: mainColor,
                         radius: 14.0,
                         child: Icon(

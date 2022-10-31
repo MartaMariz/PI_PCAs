@@ -107,7 +107,6 @@ class _ProfileState extends State<Profile>{
                 height: 10,
               ),
           SizedBox(
-              width: size.width * .3,
               child: StreamBuilder<UserData>(
                 stream: DatabaseService().userData(user.id),
                 builder: (context, snapshot){
