@@ -276,7 +276,7 @@ class _RecordState extends State<AddRecord>{
 
                           //enviar button
                           const SizedBox(height: 20,),
-                          Padding(padding: const EdgeInsets.all(2.0),
+                          Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0),
                             child: GestureDetector(
                               onTap: sendData,
                               child: Container(

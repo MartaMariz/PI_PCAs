@@ -374,7 +374,7 @@ class _MealCardState extends State<MealCard>{
             ),
 
           //enviar button
-          Padding(padding: const EdgeInsets.all(2.0),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0),
             child: GestureDetector(
               onTap: sendData,
               child: Container(
