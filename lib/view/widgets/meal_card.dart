@@ -314,8 +314,8 @@ class _MealCardState extends State<MealCard>{
                 ),
                 Row(
                   children: [
-                    const Text("Comi uma grande quantidade de alimentos?",
-                      style: TextStyle(color: textGrayColor, fontSize: 12)
+                    const Text("Comi uma grande \nquantidade de alimentos?",
+                      style: TextStyle(color: textGrayColor, fontSize: 13)
                       ,),
                     const Spacer(),
                     Checkbox(value: quantity,
@@ -338,8 +338,8 @@ class _MealCardState extends State<MealCard>{
                 ),
                 Row(
                   children: [
-                    const Text("Recorri a um comportamento para compensar?",
-                      style: TextStyle(color: textGrayColor, fontSize: 12)
+                    const Text("Recorri a um comportamento \npara compensar?",
+                      style: TextStyle(color: textGrayColor, fontSize: 13)
                       ,),
                     const Spacer(),
                     Checkbox(value: behaviour,
@@ -378,7 +378,7 @@ class _MealCardState extends State<MealCard>{
             child: GestureDetector(
               onTap: sendData,
               child: Container(
-                  padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
+                  padding: EdgeInsets.fromLTRB(width*0.4-12, 10, width*0.4-12, 10),
                   decoration:  BoxDecoration(
                     color: mainColor,
                     borderRadius: BorderRadius.circular(12),

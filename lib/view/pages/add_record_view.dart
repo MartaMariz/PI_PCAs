@@ -280,7 +280,7 @@ class _RecordState extends State<AddRecord>{
                             child: GestureDetector(
                               onTap: sendData,
                               child: Container(
-                                  padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
+                                  padding: EdgeInsets.fromLTRB(width*0.4-12, 10, width*0.4-12, 10),
                                   decoration:  BoxDecoration(
                                     color: mainColor,
                                     borderRadius: BorderRadius.circular(12),

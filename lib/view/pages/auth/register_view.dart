@@ -25,6 +25,7 @@ class _RegisterPage extends State<RegisterPage>{
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
   final _key = GlobalKey<FormState>();
+  late double width;
 
   final AuthService _auth = AuthService();
   final DatabaseService _database = DatabaseService();
@@ -85,6 +86,7 @@ class _RegisterPage extends State<RegisterPage>{
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[200],
@@ -253,7 +255,7 @@ class _RegisterPage extends State<RegisterPage>{
                           child: GestureDetector(
                             onTap: createAccount,
                             child: Container(
-                                padding: const EdgeInsets.fromLTRB(130, 10, 130, 10),
+                                padding: EdgeInsets.fromLTRB(width*0.4-30, 10, width*0.4-30, 10),
                                 decoration:  BoxDecoration(
                                   color: mainColor,
                                   borderRadius: BorderRadius.circular(12),

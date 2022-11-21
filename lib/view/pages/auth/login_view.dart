@@ -19,6 +19,7 @@ class _LoginPage extends State<LoginPage>{
   //controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  late double width;
 
   final AuthService _auth = AuthService();
 
@@ -43,6 +44,7 @@ class _LoginPage extends State<LoginPage>{
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: SafeArea(
@@ -138,7 +140,7 @@ class _LoginPage extends State<LoginPage>{
                 child: GestureDetector(
                   onTap: signIn,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
+                    padding: EdgeInsets.fromLTRB(width*0.4-10, 10, width*0.4-10, 10),
                     decoration:  BoxDecoration(
                       color: mainColor,
                       borderRadius: BorderRadius.circular(12),
